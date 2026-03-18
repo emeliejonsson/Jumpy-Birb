@@ -18,11 +18,6 @@ public class MenuState extends State {
 
     @Override
     public void handleInput() {
-//        if (Gdx.input.justTouched()) { //start game with mouse-click
-//            gsm.set(new PlayState(gsm));
-//            dispose();
-//        }
-
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             //some sort of delay here?
             gsm.set(new PlayState(gsm));

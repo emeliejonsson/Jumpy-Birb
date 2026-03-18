@@ -34,9 +34,6 @@ public class PlayState extends State {
 
     @Override
     protected void handleInput() {
-//        if (Gdx.input.justTouched()) { //control bird with mouse-click
-//            bird.jump();
-//        }
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             bird.jump();
         }
