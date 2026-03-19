@@ -1,11 +1,10 @@
-package com.test.game.States;
+package com.test.game.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.test.game.JumpyBirb;
-import com.test.game.sprites.Bird;
 
 public class CountdownState extends State {
     private Texture background;

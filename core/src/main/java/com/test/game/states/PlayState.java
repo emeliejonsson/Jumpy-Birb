@@ -1,4 +1,4 @@
-package com.test.game.States;
+package com.test.game.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;

@@ -1,14 +1,12 @@
 package com.test.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
-import com.test.game.States.GameStateManager;
-import com.test.game.States.MenuState;
+import com.test.game.states.GameStateManager;
+import com.test.game.states.MenuState;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class JumpyBirb extends ApplicationAdapter {
