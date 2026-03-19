@@ -84,5 +84,11 @@ public class CountdownState extends State {
     @Override
     public void dispose() {
         background.dispose();
+        five.dispose();
+        four.dispose();
+        three.dispose();
+        two.dispose();
+        one.dispose();
+        System.out.println("CountdownState disposed");
     }
 }

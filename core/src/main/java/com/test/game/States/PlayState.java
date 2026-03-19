@@ -74,6 +74,11 @@ public class PlayState extends State {
 
     @Override
     public void dispose() {
-
+        background.dispose();
+        bird.dispose();
+        for (Tube tube : tubes) {
+            tube.dispose();
+            System.out.println("PlayState disposed");
+        }
     }
 }

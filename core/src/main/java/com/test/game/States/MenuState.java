@@ -21,7 +21,7 @@ public class MenuState extends State {
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             //some sort of delay here?
             gsm.set(new CountdownState(gsm));
-            dispose();
+
         }
     }
 
@@ -42,6 +42,7 @@ public class MenuState extends State {
     public void dispose() {
         background.dispose();
         playButton.dispose();
+        System.out.println("MenuState disposed");
     }
 }
 
