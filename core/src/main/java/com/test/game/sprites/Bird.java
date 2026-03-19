@@ -17,7 +17,7 @@ public class Bird {
     public Bird(int x, int y) {
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
-        bird = new Texture("bird.png");
+        bird = new Texture("domherre.png");
         bounds = new Rectangle(x, y, bird.getWidth(), bird.getHeight());
     }
 
