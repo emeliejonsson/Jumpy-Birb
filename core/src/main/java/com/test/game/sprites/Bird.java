@@ -3,7 +3,6 @@ package com.test.game.sprites;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
-import org.w3c.dom.Text;
 
 public class Bird {
     private static final int GRAVITY = -15;
