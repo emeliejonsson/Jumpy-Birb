@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.test.game.JumpyBirb;
 import com.test.game.sprites.Bird;
 import com.test.game.sprites.Tube;
@@ -58,11 +59,12 @@ public class PlayState extends State {
     }
 
     @Override
-    public void render(SpriteBatch batch) {
+    public void render(SpriteBatch batch, ShapeRenderer renderer) {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(background, camera.position.x - (camera.viewportWidth / 2), 0);
         batch.draw(bird.getTexture(), bird.getPosition().x, bird.getPosition().y);
+
 
         for (Tube tube : tubes) {
             batch.draw(tube.getTopTube(), tube.getPositionTop().x, tube.getPositionTop().y);
@@ -70,6 +72,12 @@ public class PlayState extends State {
         }
 
         batch.end();
+
+        renderer.setProjectionMatrix(camera.combined);
+        renderer.begin(ShapeRenderer.ShapeType.Line);
+        renderer.setColor(0, 1, 1, 1);
+        renderer.circle(bird.getBounds().x, bird.getBounds().y, bird.getBounds().radius);
+        renderer.end();
     }
 
     @Override

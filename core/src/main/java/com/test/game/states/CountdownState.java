@@ -4,7 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.test.game.JumpyBirb;
+
+import java.awt.*;
 
 public class CountdownState extends State {
     private Texture background;
@@ -55,7 +58,7 @@ public class CountdownState extends State {
     }
 
     @Override
-    public void render(SpriteBatch batch) { //render a countdown?
+    public void render(SpriteBatch batch, ShapeRenderer renderer) { //render a countdown?
         batch.begin();
         batch.draw(background, 0, 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
         int c = (int) count;

@@ -1,8 +1,10 @@
 package com.test.game.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Intersector;
 
 import java.util.Random;
 
@@ -53,8 +55,9 @@ public class Tube {
         boundsBottom.setPosition(positionBottom.x, positionBottom.y);
     }
 
-    public boolean collides(Rectangle player) {
-        return player.overlaps(boundsTop) || (player.overlaps(boundsBottom));
+    public boolean collides(Circle player) {
+        return Intersector.overlaps(player, boundsTop) ||
+            Intersector.overlaps(player, boundsBottom);
     }
 
     public void dispose() {
