@@ -17,11 +17,7 @@ public class JumpyBirb extends ApplicationAdapter {
     public static final String TITLE = "Jumpy Birb";
     private GameStateManager gsm;
     private SpriteBatch batch;
-<<<<<<< HEAD
-    private Texture image;
     private ShapeRenderer shapeRenderer;
-=======
->>>>>>> 54b4de8e890f886d1db4924e711146451a5269a4
 
     @Override
     public void create() {
@@ -42,9 +38,6 @@ public class JumpyBirb extends ApplicationAdapter {
     @Override
     public void dispose() {
         batch.dispose();
-<<<<<<< HEAD
         shapeRenderer.dispose();
-=======
->>>>>>> 54b4de8e890f886d1db4924e711146451a5269a4
     }
 }

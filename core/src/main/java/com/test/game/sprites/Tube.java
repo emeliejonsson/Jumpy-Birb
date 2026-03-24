@@ -25,7 +25,7 @@ public class Tube {
 
         positionTop = new Vector2(x, random.nextInt(FLUCTUATION) + TUBE_GAP + LOWEST_OPENING);
         positionBottom = new Vector2(x, positionTop.y - TUBE_GAP - bottomTube.getHeight());
-        
+
         //hitbox på fågelholk behöver ändras, alternativt hinder kan vara stubbar?
         hitboxTopTube = new Rectangle(positionTop.x, positionTop.y, topTube.getWidth(), topTube.getHeight());
         hitboxBottomTube = new Rectangle(positionBottom.x, positionBottom.y, bottomTube.getWidth(), bottomTube.getHeight());
@@ -55,15 +55,10 @@ public class Tube {
         hitboxTopTube.setPosition(positionTop.x, positionTop.y);
         hitboxBottomTube.setPosition(positionBottom.x, positionBottom.y);
     }
-
-<<<<<<< HEAD
+    
     public boolean collides(Circle player) {
-        return Intersector.overlaps(player, boundsTop) ||
-            Intersector.overlaps(player, boundsBottom);
-=======
-    public boolean collides(Rectangle player) {
-        return player.overlaps(hitboxTopTube) || (player.overlaps(hitboxBottomTube));
->>>>>>> 54b4de8e890f886d1db4924e711146451a5269a4
+        return Intersector.overlaps(player, hitboxTopTube) ||
+            Intersector.overlaps(player, hitboxBottomTube);
     }
 
     public void dispose() {
