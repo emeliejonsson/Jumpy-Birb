@@ -15,7 +15,7 @@ public class Tube {
     private static final int LOWEST_OPENING = 120;
     private Texture topTube, bottomTube;
     private Vector2 positionTop, positionBottom;
-    private Rectangle boundsTop, boundsBottom;
+    private Rectangle hitboxTopTube, hitboxBottomTube;
     private Random random;
 
     public Tube(float x) {
@@ -25,9 +25,10 @@ public class Tube {
 
         positionTop = new Vector2(x, random.nextInt(FLUCTUATION) + TUBE_GAP + LOWEST_OPENING);
         positionBottom = new Vector2(x, positionTop.y - TUBE_GAP - bottomTube.getHeight());
-
-        boundsTop = new Rectangle(positionTop.x, positionTop.y, topTube.getWidth(), topTube.getHeight());
-        boundsBottom = new Rectangle(positionBottom.x, positionBottom.y, bottomTube.getWidth(), bottomTube.getHeight());
+        
+        //hitbox på fågelholk behöver ändras, alternativt hinder kan vara stubbar?
+        hitboxTopTube = new Rectangle(positionTop.x, positionTop.y, topTube.getWidth(), topTube.getHeight());
+        hitboxBottomTube = new Rectangle(positionBottom.x, positionBottom.y, bottomTube.getWidth(), bottomTube.getHeight());
 
     }
 
@@ -51,13 +52,18 @@ public class Tube {
     public void reposition(float x) {
         positionTop.set(x, random.nextInt(FLUCTUATION) + TUBE_GAP + LOWEST_OPENING);
         positionBottom.set(x, positionTop.y - TUBE_GAP - bottomTube.getHeight());
-        boundsTop.setPosition(positionTop.x, positionTop.y);
-        boundsBottom.setPosition(positionBottom.x, positionBottom.y);
+        hitboxTopTube.setPosition(positionTop.x, positionTop.y);
+        hitboxBottomTube.setPosition(positionBottom.x, positionBottom.y);
     }
 
+<<<<<<< HEAD
     public boolean collides(Circle player) {
         return Intersector.overlaps(player, boundsTop) ||
             Intersector.overlaps(player, boundsBottom);
+=======
+    public boolean collides(Rectangle player) {
+        return player.overlaps(hitboxTopTube) || (player.overlaps(hitboxBottomTube));
+>>>>>>> 54b4de8e890f886d1db4924e711146451a5269a4
     }
 
     public void dispose() {
