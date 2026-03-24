@@ -16,13 +16,11 @@ public class JumpyBirb extends ApplicationAdapter {
     public static final String TITLE = "Jumpy Birb";
     private GameStateManager gsm;
     private SpriteBatch batch;
-    private Texture image;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
         gsm = new GameStateManager();
-        //image = new Texture("libgdx.png");
         Gdx.gl.glClearColor(0, 0, 0, 1);
         gsm.push(new MenuState(gsm));
     }
@@ -40,6 +38,5 @@ public class JumpyBirb extends ApplicationAdapter {
     @Override
     public void dispose() {
         batch.dispose();
-        image.dispose();
     }
 }
