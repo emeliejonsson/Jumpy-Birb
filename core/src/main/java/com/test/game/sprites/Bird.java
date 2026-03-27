@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector3;
 
 public class Bird {
-    private static final int GRAVITY = -15;
+    private static final int GRAVITY = -900;
     private static final int MOVEMENT = 100;
     private Vector3 position;
     private Vector3 velocity;
@@ -24,7 +24,7 @@ public class Bird {
 
     public void update(float delta) {
         if (position.y > 0) {
-            velocity.add(0, GRAVITY, 0);
+            velocity.add(0, GRAVITY * delta, 0);
         }
 
         velocity.scl(delta);
