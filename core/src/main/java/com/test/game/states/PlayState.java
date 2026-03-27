@@ -18,13 +18,14 @@ public class PlayState extends State {
     private static final int TUBE_COUNT = 4;
     private Bird bird;
     private Texture background;
-
     private boolean debugMode;
-
     private ArrayList<Tube> tubes;
     private int score;
     private BitmapFont textFont;
     private Sound sound = Gdx.audio.newSound(Gdx.files.internal("bading.mp3"));
+    private BitmapFont highScoreText;
+    //    private Preferences prefs;
+    private static int currentHighScore;
 
     protected PlayState(GameStateManager gsm) {
         super(gsm);
@@ -34,8 +35,12 @@ public class PlayState extends State {
         textFont = new BitmapFont();
         textFont.getData().setScale(2);
         score = 0;
+        highScoreText = new BitmapFont();
         debugMode = false;
         tubes = new ArrayList<>();
+//        prefs = Gdx.app.getPreferences("JPBirdSave");
+//        currentHighScore = prefs.getInteger("currentHighScore", 0);
+
 
         for (int i = 1; i <= TUBE_COUNT; i++) {
             tubes.add(new Tube(i * (TUBE_SPACING + Tube.TUBE_WIDTH)));
@@ -62,7 +67,6 @@ public class PlayState extends State {
         handleInput();
         bird.update(delta);
         camera.position.x = bird.getPosition().x + 80; //offset bird
-
         for (Tube tube : tubes) {
             if (camera.position.x - (camera.viewportWidth / 2) > tube.getPositionTop().x + tube.getTopTube().getWidth()) {
                 tube.reposition(tube.getPositionTop().x + ((Tube.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT));
@@ -73,11 +77,17 @@ public class PlayState extends State {
             }
 
             if (tube.pass((bird.getBounds()))) {
+
                 score++;
                 System.out.println(score);
                 long id = sound.play(1.0f);
             }
 
+            if (currentHighScore < score) {
+                currentHighScore = score;
+//                prefs.putInteger("currentHighScore", currentHighScore);
+//                prefs.flush();
+            }
 
         }
         camera.update();
@@ -100,6 +110,9 @@ public class PlayState extends State {
 
 
         textFont.draw(batch, "score: " + score, camera.position.x - (camera.viewportWidth / 2), camera.position.y + (camera.viewportHeight / 2) - 20);
+
+        highScoreText.draw(batch, "top: " + currentHighScore, camera.position.x - (camera.viewportWidth / 2), camera.position.y + (camera.viewportHeight / 3));
+
         if (debugMode) {
             renderHitbox(renderer);
         }
@@ -124,7 +137,8 @@ public class PlayState extends State {
             System.out.println("PlayState disposed");
 
         }
-
+        highScoreText.dispose();
         sound.dispose();
+//        prefs.flush();
     }
 }
