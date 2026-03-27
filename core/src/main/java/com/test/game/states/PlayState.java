@@ -24,7 +24,6 @@ public class PlayState extends State {
     private ArrayList<Tube> tubes;
     private int score;
     private BitmapFont textFont;
-    private Sound sound = Gdx.audio.newSound(Gdx.files.internal("bading.mp3"));
 
     protected PlayState(GameStateManager gsm) {
         super(gsm);
@@ -75,7 +74,6 @@ public class PlayState extends State {
             if (tube.pass((bird.getBounds()))) {
                 score++;
                 System.out.println(score);
-                long id = sound.play(1.0f);
             }
 
 
@@ -97,7 +95,6 @@ public class PlayState extends State {
 
 
         }
-
 
         textFont.draw(batch, "score: " + score, camera.position.x - (camera.viewportWidth / 2), camera.position.y + (camera.viewportHeight / 2) - 20);
         if (debugMode) {
@@ -124,7 +121,5 @@ public class PlayState extends State {
             System.out.println("PlayState disposed");
 
         }
-
-        sound.dispose();
     }
 }
