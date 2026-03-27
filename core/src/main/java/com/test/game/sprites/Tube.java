@@ -63,8 +63,8 @@ public class Tube {
     public void reposition(float x) {
         positionTop.set(x, random.nextInt(FLUCTUATION) + TUBE_GAP + LOWEST_OPENING);
         positionBottom.set(x, positionTop.y - TUBE_GAP - bottomTube.getHeight());
-        boundsTop.setPosition(positionTop.x, positionTop.y);
-        boundsBottom.setPosition(positionBottom.x, positionBottom.y);
+        hitboxTopTube.setPosition(positionTop.x, positionTop.y);
+        hitboxBottomTube.setPosition(positionBottom.x, positionBottom.y);
 
 
         scoreBounds.setPosition(x + TUBE_WIDTH, positionBottom.y + bottomTube.getHeight());
@@ -74,9 +74,7 @@ public class Tube {
 
 
     public boolean collides(Rectangle player) {
-        return player.overlaps(boundsTop) || (player.overlaps(boundsBottom));
-        hitboxTopTube.setPosition(positionTop.x, positionTop.y);
-        hitboxBottomTube.setPosition(positionBottom.x, positionBottom.y);
+        return player.overlaps(hitboxTopTube) || (player.overlaps(hitboxBottomTube));
     }
 
     public boolean collides(Circle player) {
@@ -85,8 +83,8 @@ public class Tube {
     }
 
 
-    public boolean pass(Rectangle player) {
-        if (!isScoreFalse && player.overlaps(scoreBounds)) {
+    public boolean pass(Circle player) {
+        if (!isScoreFalse && Intersector.overlaps(player, scoreBounds)) {
             isScoreFalse = true;
             return true;
         }
