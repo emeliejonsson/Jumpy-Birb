@@ -1,6 +1,7 @@
 package com.test.game.states;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.util.Stack;
 
@@ -9,7 +10,7 @@ public class GameStateManager {
     private Stack<State> states;
 
     public GameStateManager() {
-        states = new Stack<State>();
+        states = new Stack<>();
     }
 
     public void push(State state) {
@@ -29,7 +30,7 @@ public class GameStateManager {
         states.peek().update(delta);
     }
 
-    public void render(SpriteBatch batch) {
-        states.peek().render(batch);
+    public void render(SpriteBatch batch, ShapeRenderer renderer) {
+        states.peek().render(batch, renderer);
     }
 }

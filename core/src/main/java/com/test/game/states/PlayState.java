@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.test.game.JumpyBirb;
 import com.test.game.sprites.Bird;
 import com.test.game.sprites.Tube;
@@ -17,6 +18,9 @@ public class PlayState extends State {
     private static final int TUBE_COUNT = 4;
     private Bird bird;
     private Texture background;
+
+    private boolean debugMode;
+
     private ArrayList<Tube> tubes;
     private int score;
     private BitmapFont textFont;
@@ -30,7 +34,8 @@ public class PlayState extends State {
         textFont = new BitmapFont();
         textFont.getData().setScale(2);
         score = 0;
-        tubes = new ArrayList<Tube>();
+        debugMode = false;
+        tubes = new ArrayList<>();
 
         for (int i = 1; i <= TUBE_COUNT; i++) {
             tubes.add(new Tube(i * (TUBE_SPACING + Tube.TUBE_WIDTH)));
@@ -41,8 +46,14 @@ public class PlayState extends State {
 
     @Override
     protected void handleInput() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.justTouched()) {
+        // Jump
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             bird.jump();
+        }
+
+        // Turn on debug mode
+        if (Gdx.input.isKeyJustPressed(Input.Keys.H)) {
+            debugMode = !debugMode;
         }
     }
 
@@ -73,11 +84,12 @@ public class PlayState extends State {
     }
 
     @Override
-    public void render(SpriteBatch batch) {
+    public void render(SpriteBatch batch, ShapeRenderer renderer) {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(background, camera.position.x - (camera.viewportWidth / 2), 0);
         batch.draw(bird.getTexture(), bird.getPosition().x, bird.getPosition().y);
+
 
         for (Tube tube : tubes) {
             batch.draw(tube.getTopTube(), tube.getPositionTop().x, tube.getPositionTop().y);
@@ -88,7 +100,18 @@ public class PlayState extends State {
 
 
         textFont.draw(batch, "score: " + score, camera.position.x - (camera.viewportWidth / 2), camera.position.y + (camera.viewportHeight / 2) - 20);
+        if (debugMode) {
+            renderHitbox(renderer);
+        }
         batch.end();
+    }
+
+    public void renderHitbox(ShapeRenderer renderer) {
+        renderer.setProjectionMatrix(camera.combined);
+        renderer.begin(ShapeRenderer.ShapeType.Line);
+        renderer.setColor(0, 1, 1, 1);
+        renderer.circle(bird.getBounds().x, bird.getBounds().y, bird.getBounds().radius);
+        renderer.end();
     }
 
     @Override

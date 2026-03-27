@@ -1,8 +1,10 @@
 package com.test.game.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Intersector;
 
 import java.util.Random;
 
@@ -13,7 +15,7 @@ public class Tube {
     private static final int LOWEST_OPENING = 120;
     private Texture topTube, bottomTube;
     private Vector2 positionTop, positionBottom;
-    private Rectangle boundsTop, boundsBottom;
+    private Rectangle hitboxTopTube, hitboxBottomTube;
     private Random random;
     private Rectangle scoreBounds;
     private Texture scoreText;
@@ -30,10 +32,9 @@ public class Tube {
         positionTop = new Vector2(x, random.nextInt(FLUCTUATION) + TUBE_GAP + LOWEST_OPENING);
         positionBottom = new Vector2(x, positionTop.y - TUBE_GAP - bottomTube.getHeight());
 
-        // hitbox
-
-        boundsTop = new Rectangle(positionTop.x, positionTop.y, topTube.getWidth(), topTube.getHeight());
-        boundsBottom = new Rectangle(positionBottom.x, positionBottom.y, bottomTube.getWidth(), bottomTube.getHeight());
+        //hitbox på fågelholk behöver ändras, alternativt hinder kan vara stubbar?
+        hitboxTopTube = new Rectangle(positionTop.x, positionTop.y, topTube.getWidth(), topTube.getHeight());
+        hitboxBottomTube = new Rectangle(positionBottom.x, positionBottom.y, bottomTube.getWidth(), bottomTube.getHeight());
 
         // score wall
         scoreBounds = new Rectangle(positionBottom.x + TUBE_WIDTH,
@@ -74,6 +75,13 @@ public class Tube {
 
     public boolean collides(Rectangle player) {
         return player.overlaps(boundsTop) || (player.overlaps(boundsBottom));
+        hitboxTopTube.setPosition(positionTop.x, positionTop.y);
+        hitboxBottomTube.setPosition(positionBottom.x, positionBottom.y);
+    }
+
+    public boolean collides(Circle player) {
+        return Intersector.overlaps(player, hitboxTopTube) ||
+            Intersector.overlaps(player, hitboxBottomTube);
     }
 
 
