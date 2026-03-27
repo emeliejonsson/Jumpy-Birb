@@ -46,7 +46,7 @@ public class Bird {
     }
 
     public void jump() {
-        velocity.y = 400;
+        velocity.y = 300;
     }
 
     public Rectangle getBounds() {
