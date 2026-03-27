@@ -1,16 +1,15 @@
 package com.test.game.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector3;
-import org.w3c.dom.Text;
 
 public class Bird {
-    private static final int GRAVITY = -15;
+    private static final int GRAVITY = -900;
     private static final int MOVEMENT = 100;
     private Vector3 position;
     private Vector3 velocity;
-    private Rectangle bounds;
+    private Circle bounds;
 
     private Texture bird;
 
@@ -18,12 +17,14 @@ public class Bird {
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
         bird = new Texture("domherre.png");
-        bounds = new Rectangle(x, y, bird.getWidth(), bird.getHeight());
+
+        float radius = bird.getWidth() / 7.5f;
+        bounds = new Circle(x, y, radius);
     }
 
     public void update(float delta) {
         if (position.y > 0) {
-            velocity.add(0, GRAVITY, 0);
+            velocity.add(0, GRAVITY * delta, 0);
         }
 
         velocity.scl(delta);
@@ -34,7 +35,9 @@ public class Bird {
         }
 
         velocity.scl(1 / delta);
-        bounds.setPosition(position.x, position.y);
+
+        bounds.setPosition(position.x + bird.getWidth() / 2,
+            position.y + bird.getHeight() / 2);
     }
 
     public Texture getTexture() {
@@ -49,7 +52,7 @@ public class Bird {
         velocity.y = 300;
     }
 
-    public Rectangle getBounds() {
+    public Circle getBounds() {
         return bounds;
     }
 

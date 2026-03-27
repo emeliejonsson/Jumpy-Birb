@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.test.game.JumpyBirb;
 
 public class MenuState extends State {
@@ -32,7 +33,7 @@ public class MenuState extends State {
     }
 
     @Override
-    public void render(SpriteBatch batch) { //draw starts bottom left-hand corner, continues right and upwards
+    public void render(SpriteBatch batch, ShapeRenderer renderer) { //draw starts bottom left-hand corner, continues right and upwards
         batch.begin();
         batch.draw(background, 0, 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
         batch.draw(playButton, (JumpyBirb.WIDTH / 2) - (playButton.getWidth() / 2), JumpyBirb.HEIGHT / 2);
