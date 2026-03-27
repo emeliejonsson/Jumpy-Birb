@@ -2,7 +2,9 @@ package com.test.game.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.test.game.JumpyBirb;
@@ -14,25 +16,32 @@ import java.util.ArrayList;
 public class PlayState extends State {
     private static final int TUBE_SPACING = 125;
     private static final int TUBE_COUNT = 4;
-
     private Bird bird;
     private Texture background;
 
     private boolean debugMode;
 
     private ArrayList<Tube> tubes;
+    private int score;
+    private BitmapFont textFont;
+    private Sound sound = Gdx.audio.newSound(Gdx.files.internal("bading.mp3"));
 
     protected PlayState(GameStateManager gsm) {
         super(gsm);
         bird = new Bird(50, 300);
         camera.setToOrtho(false, JumpyBirb.WIDTH / 2, JumpyBirb.HEIGHT / 2);
         background = new Texture("bg.png");
+        textFont = new BitmapFont();
+        textFont.getData().setScale(2);
+        score = 0;
         debugMode = false;
         tubes = new ArrayList<>();
 
         for (int i = 1; i <= TUBE_COUNT; i++) {
             tubes.add(new Tube(i * (TUBE_SPACING + Tube.TUBE_WIDTH)));
         }
+
+
     }
 
     @Override
@@ -62,6 +71,14 @@ public class PlayState extends State {
             if (tube.collides(bird.getBounds())) {
                 gsm.set(new PlayState(gsm));
             }
+
+            if (tube.pass((bird.getBounds()))) {
+                score++;
+                System.out.println(score);
+                long id = sound.play(1.0f);
+            }
+
+
         }
         camera.update();
     }
@@ -77,8 +94,12 @@ public class PlayState extends State {
         for (Tube tube : tubes) {
             batch.draw(tube.getTopTube(), tube.getPositionTop().x, tube.getPositionTop().y);
             batch.draw(tube.getBottomTube(), tube.getPositionBottom().x, tube.getPositionBottom().y);
+
+
         }
 
+
+        textFont.draw(batch, "score: " + score, camera.position.x - (camera.viewportWidth / 2), camera.position.y + (camera.viewportHeight / 2) - 20);
         if (debugMode) {
             renderHitbox(renderer);
         }
@@ -97,9 +118,13 @@ public class PlayState extends State {
     public void dispose() {
         background.dispose();
         bird.dispose();
+        textFont.dispose();
         for (Tube tube : tubes) {
             tube.dispose();
             System.out.println("PlayState disposed");
+
         }
+
+        sound.dispose();
     }
 }
