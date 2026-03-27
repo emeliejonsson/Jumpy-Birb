@@ -55,7 +55,7 @@ public class Tube {
         hitboxTopTube.setPosition(positionTop.x, positionTop.y);
         hitboxBottomTube.setPosition(positionBottom.x, positionBottom.y);
     }
-    
+
     public boolean collides(Circle player) {
         return Intersector.overlaps(player, hitboxTopTube) ||
             Intersector.overlaps(player, hitboxBottomTube);
