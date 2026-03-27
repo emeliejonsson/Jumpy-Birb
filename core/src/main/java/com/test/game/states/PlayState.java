@@ -18,6 +18,8 @@ public class PlayState extends State {
     private Bird bird;
     private Texture background;
 
+    private boolean debugMode;
+
     private ArrayList<Tube> tubes;
 
     protected PlayState(GameStateManager gsm) {
@@ -25,8 +27,8 @@ public class PlayState extends State {
         bird = new Bird(50, 300);
         camera.setToOrtho(false, JumpyBirb.WIDTH / 2, JumpyBirb.HEIGHT / 2);
         background = new Texture("bg.png");
-
-        tubes = new ArrayList<Tube>();
+        debugMode = false;
+        tubes = new ArrayList<>();
 
         for (int i = 1; i <= TUBE_COUNT; i++) {
             tubes.add(new Tube(i * (TUBE_SPACING + Tube.TUBE_WIDTH)));
@@ -35,8 +37,14 @@ public class PlayState extends State {
 
     @Override
     protected void handleInput() {
+        // Jump
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             bird.jump();
+        }
+
+        // Turn on debug mode
+        if (Gdx.input.isKeyJustPressed(Input.Keys.H)) {
+            debugMode = !debugMode;
         }
     }
 
@@ -71,8 +79,13 @@ public class PlayState extends State {
             batch.draw(tube.getBottomTube(), tube.getPositionBottom().x, tube.getPositionBottom().y);
         }
 
+        if (debugMode) {
+            renderHitbox(renderer);
+        }
         batch.end();
+    }
 
+    public void renderHitbox(ShapeRenderer renderer) {
         renderer.setProjectionMatrix(camera.combined);
         renderer.begin(ShapeRenderer.ShapeType.Line);
         renderer.setColor(0, 1, 1, 1);
