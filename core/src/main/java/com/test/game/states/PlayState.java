@@ -80,7 +80,6 @@ public class PlayState extends State {
 
                 score++;
                 System.out.println(score);
-                long id = sound.play(1.0f);
             }
 
             if (currentHighScore < score) {
@@ -107,7 +106,6 @@ public class PlayState extends State {
 
 
         }
-
 
         textFont.draw(batch, "score: " + score, camera.position.x - (camera.viewportWidth / 2), camera.position.y + (camera.viewportHeight / 2) - 20);
 
