@@ -18,7 +18,6 @@ public class Tube {
     private Rectangle hitboxTopTube, hitboxBottomTube;
     private Random random;
     private Rectangle scoreBounds;
-    private Texture scoreText;
     private Boolean isScoreFalse = false;
 
 
