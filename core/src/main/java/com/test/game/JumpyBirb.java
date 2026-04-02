@@ -11,8 +11,8 @@ import com.test.game.states.PlayState;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class JumpyBirb extends ApplicationAdapter {
-    public static final int WIDTH = 480;
-    public static final int HEIGHT = 800;
+    public static final int WIDTH = 1280;
+    public static final int HEIGHT = 720;
 
     public static final String TITLE = "Jumpy Birb";
     private GameStateManager gsm;
