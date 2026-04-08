@@ -29,6 +29,8 @@ public class PlayState extends State {
     //    private Preferences prefs;
     private static int currentHighScore;
 
+    private boolean startGame = false;
+
     protected PlayState(GameStateManager gsm) {
         super(gsm);
         bird = new Bird(50, 300);
@@ -43,16 +45,20 @@ public class PlayState extends State {
 //        prefs = Gdx.app.getPreferences("JPBirdSave");
 //        currentHighScore = prefs.getInteger("currentHighScore", 0);
 
-
         for (int i = 1; i <= TUBE_COUNT; i++) {
             tubes.add(new Tube(i * (TUBE_SPACING + Tube.TUBE_WIDTH)));
         }
-
-
     }
 
     @Override
     protected void handleInput() {
+        if (!startGame) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+                bird.jump();
+                startGame = true;
+            }
+            return;
+        }
         // Jump
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             bird.jump();
@@ -67,8 +73,13 @@ public class PlayState extends State {
     @Override
     public void update(float delta) {
         handleInput();
+
+        if (!startGame) {
+            return;
+        }
         bird.update(delta);
         camera.position.x = bird.getPosition().x + 80; //offset bird
+
         for (Tube tube : tubes) {
             if (camera.position.x - (camera.viewportWidth / 2) > tube.getPositionTop().x + tube.getTopTube().getWidth()) {
                 tube.reposition(tube.getPositionTop().x + ((Tube.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT));
@@ -79,7 +90,6 @@ public class PlayState extends State {
             }
 
             if (tube.pass((bird.getBounds()))) {
-
                 score++;
                 System.out.println(score);
             }
@@ -89,7 +99,6 @@ public class PlayState extends State {
 //                prefs.putInteger("currentHighScore", currentHighScore);
 //                prefs.flush();
             }
-
         }
         camera.update();
     }
@@ -101,16 +110,12 @@ public class PlayState extends State {
         batch.draw(background, camera.position.x - (camera.viewportWidth / 2), 0);
         batch.draw(bird.getTexture(), bird.getPosition().x, bird.getPosition().y);
 
-
         for (Tube tube : tubes) {
             batch.draw(tube.getTopTube(), tube.getPositionTop().x, tube.getPositionTop().y);
             batch.draw(tube.getBottomTube(), tube.getPositionBottom().x, tube.getPositionBottom().y);
-
-
         }
 
         textFont.draw(batch, "score: " + score, camera.position.x - (camera.viewportWidth / 2), camera.position.y + (camera.viewportHeight / 2) - 20);
-
         highScoreText.draw(batch, "top: " + currentHighScore, camera.position.x - (camera.viewportWidth / 2), camera.position.y + (camera.viewportHeight / 3));
 
         if (debugMode) {
@@ -135,7 +140,6 @@ public class PlayState extends State {
         for (Tube tube : tubes) {
             tube.dispose();
             System.out.println("PlayState disposed");
-
         }
         highScoreText.dispose();
         sound.dispose();
