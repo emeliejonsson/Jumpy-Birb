@@ -21,9 +21,7 @@ public class MenuState extends State {
     public void handleInput() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.justTouched()) {
             //some sort of delay here?
-            gsm.set(new CountdownState(gsm));
-
-
+            gsm.set(new PlayState(gsm));
         }
     }
 
