@@ -10,11 +10,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.test.game.JumpyBirb;
 import com.test.game.sprites.Bird;
 import com.test.game.sprites.Tube;
+import com.badlogic.gdx.graphics.Texture;
+import java.util.Random;
 
 import java.util.ArrayList;
 
 public class PlayState extends State {
-    private static final int TUBE_SPACING = 125;
+    private static final int TUBE_SPACING = 175;
     private static final int TUBE_COUNT = 4;
     private Bird bird;
     private Texture background;
