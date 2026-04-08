@@ -23,17 +23,24 @@ public class Tube {
 
     public Tube(float x) {
         topTube = new Texture("toptube.png");
-        bottomTube = new Texture("bottomtube.png");
         random = new Random();
+        bottomTube = random.nextBoolean() ? new Texture("bottomtube.png") : new Texture("bottomtube2.png");
 
         // position
-
         positionTop = new Vector2(x, random.nextInt(FLUCTUATION) + TUBE_GAP + LOWEST_OPENING);
         positionBottom = new Vector2(x, positionTop.y - TUBE_GAP - bottomTube.getHeight());
 
+        float widthTop = topTube.getWidth() * 0.5f;
+        float heightTop = topTube.getHeight();
+        float widthBottom = bottomTube.getWidth() * 0.5f;
+        float heightBottom = bottomTube.getHeight();
+
+        float topX = positionTop.x + (bottomTube.getWidth() - widthTop) / 2;
+        float bottomX = positionBottom.x + (bottomTube.getWidth() - widthBottom) / 2;
+
         //hitbox på fågelholk behöver ändras, alternativt hinder kan vara stubbar?
-        hitboxTopTube = new Rectangle(positionTop.x, positionTop.y, topTube.getWidth(), topTube.getHeight());
-        hitboxBottomTube = new Rectangle(positionBottom.x, positionBottom.y, bottomTube.getWidth(), bottomTube.getHeight());
+        hitboxTopTube = new Rectangle(topX, positionTop.y, widthTop, heightTop);
+        hitboxBottomTube = new Rectangle(bottomX, positionBottom.y, widthBottom, heightBottom);
 
         // score wall
         scoreBounds = new Rectangle(positionBottom.x + TUBE_WIDTH,
@@ -61,10 +68,13 @@ public class Tube {
 
     public void reposition(float x) {
         positionTop.set(x, random.nextInt(FLUCTUATION) + TUBE_GAP + LOWEST_OPENING);
+
+        bottomTube.dispose();
+        bottomTube = random.nextBoolean() ? new Texture("bottomtube.png") : new Texture("bottomtube2.png");
+
         positionBottom.set(x, positionTop.y - TUBE_GAP - bottomTube.getHeight());
         hitboxTopTube.setPosition(positionTop.x, positionTop.y);
         hitboxBottomTube.setPosition(positionBottom.x, positionBottom.y);
-
 
         scoreBounds.setPosition(x + TUBE_WIDTH, positionBottom.y + bottomTube.getHeight());
 
