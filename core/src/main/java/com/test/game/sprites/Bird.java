@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector3;
 
 public class Bird {
     private static final int GRAVITY = -900;
-    private static final int MOVEMENT = 100;
+    private static final int MOVEMENT = 120;
     private Vector3 position;
     private Vector3 velocity;
     private Circle bounds;
@@ -18,7 +18,7 @@ public class Bird {
         velocity = new Vector3(0, 0, 0);
         bird = new Texture("domherre.png");
 
-        float radius = bird.getWidth() / 7.5f;
+        float radius = bird.getWidth() / 4f;
         bounds = new Circle(x, y, radius);
     }
 
@@ -49,7 +49,7 @@ public class Bird {
     }
 
     public void jump() {
-        velocity.y = 300;
+        velocity.y = 333;
     }
 
     public Circle getBounds() {

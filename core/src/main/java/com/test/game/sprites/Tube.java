@@ -10,9 +10,9 @@ import java.util.Random;
 
 public class Tube {
     public static final int TUBE_WIDTH = 52;
-    private static final int FLUCTUATION = 130;
-    private static final int TUBE_GAP = 100;
-    private static final int LOWEST_OPENING = 120;
+    private static final int FLUCTUATION = 160;
+    private static final int TUBE_GAP = 85;
+    private static final int LOWEST_OPENING = 100;
     private Texture topTube, bottomTube;
     private Vector2 positionTop, positionBottom;
     private Rectangle hitboxTopTube, hitboxBottomTube;
@@ -33,9 +33,9 @@ public class Tube {
         float widthTop = topTube.getWidth() * 0.5f;
         float heightTop = topTube.getHeight();
         float widthBottom = bottomTube.getWidth() * 0.5f;
-        float heightBottom = bottomTube.getHeight();
+        float heightBottom = bottomTube.getHeight() * 0.98f;
 
-        float topX = positionTop.x + (bottomTube.getWidth() - widthTop) / 2;
+        float topX = positionTop.x + (topTube.getWidth() - widthTop) / 2;
         float bottomX = positionBottom.x + (bottomTube.getWidth() - widthBottom) / 2;
 
         //hitbox på fågelholk behöver ändras, alternativt hinder kan vara stubbar?
@@ -73,8 +73,12 @@ public class Tube {
         bottomTube = random.nextBoolean() ? new Texture("bottomtube.png") : new Texture("bottomtube2.png");
 
         positionBottom.set(x, positionTop.y - TUBE_GAP - bottomTube.getHeight());
-        hitboxTopTube.setPosition(positionTop.x, positionTop.y);
-        hitboxBottomTube.setPosition(positionBottom.x, positionBottom.y);
+
+        float topOffsetX = (topTube.getWidth() - hitboxTopTube.getWidth()) / 2;
+        float bottomOffsetX = (bottomTube.getWidth() - hitboxBottomTube.getWidth()) / 2;
+
+        hitboxTopTube.setPosition(positionTop.x + topOffsetX, positionTop.y);
+        hitboxBottomTube.setPosition(positionBottom.x + bottomOffsetX, positionBottom.y);
 
         scoreBounds.setPosition(x + TUBE_WIDTH, positionBottom.y + bottomTube.getHeight());
 
