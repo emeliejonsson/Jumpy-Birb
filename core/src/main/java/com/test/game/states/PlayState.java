@@ -10,8 +10,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.test.game.JumpyBirb;
 import com.test.game.sprites.Bird;
 import com.test.game.sprites.Tube;
-import com.badlogic.gdx.graphics.Texture;
-import java.util.Random;
 
 import java.util.ArrayList;
 
@@ -119,18 +117,26 @@ public class PlayState extends State {
 
             if (tube.pass((bird.getBounds()))) {
                 passOver.play();
-            if (tube.pass((bird.getBounds()))) {
                 score++;
                 System.out.println(score);
-            }
-
-            if (currentHighScore < score) {
-                currentHighScore = score;
+                if (currentHighScore < score) {
+                    currentHighScore = score;
 //                prefs.putInteger("currentHighScore", currentHighScore);
 //                prefs.flush();
+                }
             }
+            camera.update();
         }
-        camera.update();
+
+
+    }
+
+    private void renderHitbox(ShapeRenderer renderer) {
+        renderer.setProjectionMatrix(camera.combined);
+        renderer.begin(ShapeRenderer.ShapeType.Line);
+        renderer.setColor(0, 1, 1, 1);
+        renderer.circle(bird.getBounds().x, bird.getBounds().y, bird.getBounds().radius);
+        renderer.end();
     }
 
     @Override
@@ -139,7 +145,7 @@ public class PlayState extends State {
         batch.begin();
         float camLeft = camera.position.x - (camera.viewportWidth / 2);
         float width = camera.viewportWidth;
-        float offSet = Math.floorMod((int)camLeft, (int)width);
+        float offSet = Math.floorMod((int) camLeft, (int) width);
         batch.draw(background, camLeft - offSet, 0, width, camera.viewportHeight);
         batch.draw(background, camLeft - offSet, -width, 0, camera.viewportHeight);
         batch.draw(background, (camLeft - offSet) + width, 0, width, camera.viewportHeight);
@@ -166,17 +172,10 @@ public class PlayState extends State {
             deathMenuState.camera.update();
 
             batch.setProjectionMatrix(deathMenuState.camera.combined);
-            deathMenuState.render(batch,renderer);
+            deathMenuState.render(batch, renderer);
         }
     }
 
-    public void renderHitbox(ShapeRenderer renderer) {
-        renderer.setProjectionMatrix(camera.combined);
-        renderer.begin(ShapeRenderer.ShapeType.Line);
-        renderer.setColor(0, 1, 1, 1);
-        renderer.circle(bird.getBounds().x, bird.getBounds().y, bird.getBounds().radius);
-        renderer.end();
-    }
 
     @Override
     public void dispose() {
@@ -192,3 +191,4 @@ public class PlayState extends State {
 //        prefs.flush();
     }
 }
+
