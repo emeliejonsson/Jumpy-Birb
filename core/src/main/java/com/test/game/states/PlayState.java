@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.test.game.JumpyBirb;
 import com.test.game.sprites.Bird;
 import com.test.game.sprites.Tube;
+import com.badlogic.gdx.graphics.Texture;
+import java.util.Random;
 
 import java.util.ArrayList;
 
