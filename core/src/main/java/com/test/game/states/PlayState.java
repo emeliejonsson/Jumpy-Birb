@@ -24,18 +24,26 @@ public class PlayState extends State {
     private ArrayList<Tube> tubes;
     private int score;
     private BitmapFont textFont;
-    private Sound sound = Gdx.audio.newSound(Gdx.files.internal("bading.mp3"));
+    private Sound passOver = Gdx.audio.newSound(Gdx.files.internal("bading.mp3"));
+    private Sound deathSound = Gdx.audio.newSound(Gdx.files.internal("damnbro.mp3"));
     private BitmapFont highScoreText;
-    //    private Preferences prefs;
     private static int currentHighScore;
+    private DeathMenuState deathMenuState;
+    private boolean isDead = false;
+    private float backgroundScroll = 0f;
+    private float scroll = 200f;
+    //    private Preferences prefs;
+
 
     private boolean startGame = false;
 
     protected PlayState(GameStateManager gsm) {
         super(gsm);
+        deathMenuState = new DeathMenuState(gsm);
         bird = new Bird(50, 300);
         camera.setToOrtho(false, JumpyBirb.WIDTH / 2, JumpyBirb.HEIGHT / 2);
         background = new Texture("bg.png");
+        background.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         textFont = new BitmapFont();
         textFont.getData().setScale(2);
         score = 0;
@@ -68,16 +76,34 @@ public class PlayState extends State {
         if (Gdx.input.isKeyJustPressed(Input.Keys.H)) {
             debugMode = !debugMode;
         }
+
+        if (isDead) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+                gsm.set(new PlayState(gsm));
+            }
+        }
+
+
     }
 
     @Override
     public void update(float delta) {
+
+        // boolean that stops the game if true
+        if (isDead) {
+            handleInput();
+
+
+            return;
+        }
         handleInput();
 
         if (!startGame) {
             return;
         }
         bird.update(delta);
+
+
         camera.position.x = bird.getPosition().x + 80; //offset bird
 
         for (Tube tube : tubes) {
@@ -86,9 +112,13 @@ public class PlayState extends State {
             }
 
             if (tube.collides(bird.getBounds())) {
-                gsm.set(new PlayState(gsm));
+                isDead = true;
+                deathSound.play();
             }
 
+
+            if (tube.pass((bird.getBounds()))) {
+                passOver.play();
             if (tube.pass((bird.getBounds()))) {
                 score++;
                 System.out.println(score);
@@ -107,7 +137,12 @@ public class PlayState extends State {
     public void render(SpriteBatch batch, ShapeRenderer renderer) {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        batch.draw(background, camera.position.x - (camera.viewportWidth / 2), 0);
+        float camLeft = camera.position.x - (camera.viewportWidth / 2);
+        float width = camera.viewportWidth;
+        float offSet = Math.floorMod((int)camLeft, (int)width);
+        batch.draw(background, camLeft - offSet, 0, width, camera.viewportHeight);
+        batch.draw(background, camLeft - offSet, -width, 0, camera.viewportHeight);
+        batch.draw(background, (camLeft - offSet) + width, 0, width, camera.viewportHeight);
         batch.draw(bird.getTexture(), bird.getPosition().x, bird.getPosition().y);
 
         for (Tube tube : tubes) {
@@ -121,7 +156,18 @@ public class PlayState extends State {
         if (debugMode) {
             renderHitbox(renderer);
         }
+
+
         batch.end();
+        if (isDead) {
+            deathMenuState.camera.viewportWidth = (camera.viewportWidth / 2);
+            deathMenuState.camera.viewportHeight = (camera.viewportHeight / 2);
+            deathMenuState.camera.position.set(camera.position);
+            deathMenuState.camera.update();
+
+            batch.setProjectionMatrix(deathMenuState.camera.combined);
+            deathMenuState.render(batch,renderer);
+        }
     }
 
     public void renderHitbox(ShapeRenderer renderer) {
@@ -142,7 +188,7 @@ public class PlayState extends State {
             System.out.println("PlayState disposed");
         }
         highScoreText.dispose();
-        sound.dispose();
+        passOver.dispose();
 //        prefs.flush();
     }
 }
