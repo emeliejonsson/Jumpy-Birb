@@ -2,9 +2,9 @@ package com.test.game.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Intersector;
 
 import java.util.Random;
 
@@ -18,6 +18,7 @@ public class Tube {
     private Rectangle hitboxTopTube, hitboxBottomTube;
     private Random random;
     private Rectangle scoreBounds;
+//    private Texture scoreTexture;
     private Boolean isScoreFalse = false;
 
 
@@ -25,8 +26,8 @@ public class Tube {
         topTube = new Texture("toptube.png");
         random = new Random();
         bottomTube = random.nextBoolean() ? new Texture("bottomtube.png") : new Texture("bottomtube2.png");
+//        scoreTexture = new Texture("Goy.png");
 
-        // position
         positionTop = new Vector2(x, random.nextInt(FLUCTUATION) + TUBE_GAP + LOWEST_OPENING);
         positionBottom = new Vector2(x, positionTop.y - TUBE_GAP - bottomTube.getHeight());
 
@@ -43,11 +44,13 @@ public class Tube {
         hitboxBottomTube = new Rectangle(bottomX, positionBottom.y, widthBottom, heightBottom);
 
         // score wall
-        scoreBounds = new Rectangle(positionBottom.x + TUBE_WIDTH,
+        scoreBounds = new Rectangle(bottomX + TUBE_WIDTH,
             positionBottom.y + bottomTube.getHeight(),
             2, TUBE_GAP);
 
+
     }
+
 
     public Texture getTopTube() {
         return topTube;
@@ -81,7 +84,6 @@ public class Tube {
         hitboxBottomTube.setPosition(positionBottom.x + bottomOffsetX, positionBottom.y);
 
         scoreBounds.setPosition(x + TUBE_WIDTH, positionBottom.y + bottomTube.getHeight());
-
         isScoreFalse = false;
     }
 
@@ -113,4 +115,9 @@ public class Tube {
     public Rectangle getScoreBounds() {
         return scoreBounds;
     }
+
+//    public Texture getScoreTexture() {
+//
+//        return scoreTexture;
+//    }
 }

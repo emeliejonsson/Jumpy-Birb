@@ -28,8 +28,10 @@ public class PlayState extends State {
     private static int currentHighScore;
     private DeathMenuState deathMenuState;
     private boolean isDead = false;
-    private float backgroundScroll = 0f;
     private float scroll = 200f;
+    private float topBorder = 340f;
+    private float bottomBorder = 0f;
+    private Texture test;
     //    private Preferences prefs;
 
 
@@ -38,12 +40,13 @@ public class PlayState extends State {
     protected PlayState(GameStateManager gsm) {
         super(gsm);
         deathMenuState = new DeathMenuState(gsm);
-        bird = new Bird(50, 300);
+        bird = new Bird(50, 200);
         camera.setToOrtho(false, JumpyBirb.WIDTH / 2, JumpyBirb.HEIGHT / 2);
         background = new Texture("bg.png");
         background.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         textFont = new BitmapFont();
         textFont.getData().setScale(2);
+        test = new Texture("bg.png");
         score = 0;
         highScoreText = new BitmapFont();
         debugMode = false;
@@ -60,7 +63,6 @@ public class PlayState extends State {
     protected void handleInput() {
         if (!startGame) {
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-                bird.jump();
                 startGame = true;
             }
             return;
@@ -76,9 +78,21 @@ public class PlayState extends State {
         }
 
         if (isDead) {
+
+
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+
                 gsm.set(new PlayState(gsm));
             }
+        }
+
+        if (bird.getPosition().y >= topBorder) {
+            isDead = true;
+
+        }
+
+        if (bird.getPosition().y == bottomBorder) {
+            isDead = true;
         }
 
 
@@ -91,9 +105,10 @@ public class PlayState extends State {
         if (isDead) {
             handleInput();
 
-
             return;
         }
+
+
         handleInput();
 
         if (!startGame) {
@@ -154,6 +169,12 @@ public class PlayState extends State {
         for (Tube tube : tubes) {
             batch.draw(tube.getTopTube(), tube.getPositionTop().x, tube.getPositionTop().y);
             batch.draw(tube.getBottomTube(), tube.getPositionBottom().x, tube.getPositionBottom().y);
+//            batch.draw(tube.getScoreTexture(),
+//                tube.getScoreBounds().x,
+//                tube.getScoreBounds().y,
+//                tube.getScoreBounds().width,
+//                tube.getScoreBounds().height);
+
         }
 
         textFont.draw(batch, "score: " + score, camera.position.x - (camera.viewportWidth / 2), camera.position.y + (camera.viewportHeight / 2) - 20);
@@ -174,6 +195,8 @@ public class PlayState extends State {
             batch.setProjectionMatrix(deathMenuState.camera.combined);
             deathMenuState.render(batch, renderer);
         }
+
+
     }
 
 
