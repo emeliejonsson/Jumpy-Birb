@@ -20,7 +20,6 @@ public class MenuState extends State {
     @Override
     public void handleInput() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.justTouched()) {
-            //some sort of delay here?
             gsm.set(new PlayState(gsm));
         }
     }

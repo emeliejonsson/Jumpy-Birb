@@ -28,6 +28,7 @@ public class PlayState extends State {
     private static int currentHighScore;
     private DeathMenuState deathMenuState;
     private boolean isDead = false;
+    private float waitTimer = 1.0f;
     private float scroll = 200f;
     private float rotation = 90f;
     private float topBorder = 340f;
@@ -79,24 +80,18 @@ public class PlayState extends State {
         }
 
         if (isDead) {
-
-
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-
                 gsm.set(new PlayState(gsm));
             }
         }
 
         if (bird.getPosition().y >= topBorder) {
             isDead = true;
-
         }
 
         if (bird.getPosition().y == bottomBorder) {
             isDead = true;
         }
-
-
     }
 
     @Override
@@ -104,11 +99,13 @@ public class PlayState extends State {
 
         // boolean that stops the game if true
         if (isDead) {
-            handleInput();
-
+            if (waitTimer > 0) {
+                waitTimer -= delta;
+            } else {
+                handleInput();
+            }
             return;
         }
-
 
         handleInput();
 
