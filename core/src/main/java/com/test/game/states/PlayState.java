@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.test.game.JumpyBirb;
@@ -16,24 +17,28 @@ import java.util.ArrayList;
 public class PlayState extends State {
     private static final int TUBE_SPACING = 200;
     private static final int TUBE_COUNT = 4;
+    private boolean debugMode;
+
+    private ArrayList<Tube> tubes;
     private Bird bird;
     private Texture background;
-    private boolean debugMode;
-    private ArrayList<Tube> tubes;
-    private int score;
-    private BitmapFont textFont;
+
     private Sound passOver = Gdx.audio.newSound(Gdx.files.internal("bading.mp3"));
     private Sound deathSound = Gdx.audio.newSound(Gdx.files.internal("damnbro.mp3"));
-    private BitmapFont highScoreText;
+
+    private BitmapFont scoreText;
+    private int score;
     private static int currentHighScore;
+
     private DeathMenuState deathMenuState;
     private boolean isDead = false;
+
     private float waitTimer = 1.0f;
     private float scroll = 200f;
     private float rotation = 90f;
+
     private float topBorder = 340f;
     private float bottomBorder = 0f;
-    private Texture test;
     //    private Preferences prefs;
 
 
@@ -46,11 +51,10 @@ public class PlayState extends State {
         camera.setToOrtho(false, JumpyBirb.WIDTH / 2, JumpyBirb.HEIGHT / 2);
         background = new Texture("bg.png");
         background.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
-        textFont = new BitmapFont();
-        textFont.getData().setScale(2);
-        test = new Texture("bg.png");
+        scoreText = new BitmapFont(Gdx.files.internal("winter_font.fnt"));
+        scoreText.getData().setScale(0.5f);
+        scoreText.setUseIntegerPositions(false);
         score = 0;
-        highScoreText = new BitmapFont();
         debugMode = false;
         tubes = new ArrayList<>();
 //        prefs = Gdx.app.getPreferences("JPBirdSave");
@@ -180,9 +184,8 @@ public class PlayState extends State {
 //                tube.getScoreBounds().height);
 
         }
-
-        textFont.draw(batch, "score: " + score, camera.position.x - (camera.viewportWidth / 2), camera.position.y + (camera.viewportHeight / 2) - 20);
-        highScoreText.draw(batch, "top: " + currentHighScore, camera.position.x - (camera.viewportWidth / 2), camera.position.y + (camera.viewportHeight / 3));
+        GlyphLayout layout = new GlyphLayout(scoreText, "SCORE: " + score);
+        scoreText.draw(batch, layout, camera.position.x - layout.width / 2, camera.position.y + (camera.viewportHeight / 2) - 20);
 
         if (debugMode) {
             renderHitbox(renderer);
@@ -208,12 +211,11 @@ public class PlayState extends State {
     public void dispose() {
         background.dispose();
         bird.dispose();
-        textFont.dispose();
+        scoreText.dispose();
         for (Tube tube : tubes) {
             tube.dispose();
             System.out.println("PlayState disposed");
         }
-        highScoreText.dispose();
         passOver.dispose();
 //        prefs.flush();
     }
