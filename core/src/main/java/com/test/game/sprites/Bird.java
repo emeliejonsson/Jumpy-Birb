@@ -1,24 +1,29 @@
 package com.test.game.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector3;
+import org.w3c.dom.Text;
 
 public class Bird {
+    private float rotation = 0f;
+    private static final float MAX_ROTATION_UP = 5f;
+    private static final float MAX_ROTATION_DOWN = -25f;
+    private static final float ROTATION_SPEED = 80f; // degrees per second
     private static final int GRAVITY = -900;
     private static final int MOVEMENT = 120;
     private Vector3 position;
     private Vector3 velocity;
     private Circle bounds;
-
-    private Texture bird;
+    private TextureRegion bird;
 
     public Bird(int x, int y) {
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
-        bird = new Texture("domherre.png");
+        bird = new TextureRegion(new Texture("domherre.png"));
 
-        float radius = bird.getWidth() / 4f;
+        float radius = bird.getRegionWidth() / 4f;
         bounds = new Circle(x, y, radius);
     }
 
@@ -36,11 +41,17 @@ public class Bird {
 
         velocity.scl(1 / delta);
 
-        bounds.setPosition(position.x + bird.getWidth() / 2,
-            position.y + bird.getHeight() / 2);
+        bounds.setPosition(position.x + bird.getRegionWidth() / 2,
+            position.y + bird.getRegionHeight() / 2);
+
+        if (velocity.y > 0) {
+            rotation = Math.min(rotation + ROTATION_SPEED * delta, MAX_ROTATION_UP);
+        } else {
+            rotation = Math.max(rotation - ROTATION_SPEED * delta, MAX_ROTATION_DOWN);
+        }
     }
 
-    public Texture getTexture() {
+    public TextureRegion getTexture() {
         return bird;
     }
 
@@ -50,6 +61,19 @@ public class Bird {
 
     public void jump() {
         velocity.y = 333;
+        rotation = MAX_ROTATION_UP;
+    }
+
+    public float getWidth() {
+        return bird.getRegionWidth();
+    }
+
+    public float getHeight() {
+        return bird.getRegionHeight();
+    }
+
+    public float getRotation() {
+        return rotation;
     }
 
     public Circle getBounds() {
@@ -57,6 +81,6 @@ public class Bird {
     }
 
     public void dispose() {
-        bird.dispose();
+        bird.getTexture().dispose();
     }
 }

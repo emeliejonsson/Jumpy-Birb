@@ -29,6 +29,7 @@ public class PlayState extends State {
     private DeathMenuState deathMenuState;
     private boolean isDead = false;
     private float scroll = 200f;
+    private float rotation = 90f;
     private float topBorder = 340f;
     private float bottomBorder = 0f;
     private Texture test;
@@ -116,7 +117,6 @@ public class PlayState extends State {
         }
         bird.update(delta);
 
-
         camera.position.x = bird.getPosition().x + 80; //offset bird
 
         for (Tube tube : tubes) {
@@ -164,7 +164,14 @@ public class PlayState extends State {
         batch.draw(background, camLeft - offSet, 0, width, camera.viewportHeight);
         batch.draw(background, camLeft - offSet, -width, 0, camera.viewportHeight);
         batch.draw(background, (camLeft - offSet) + width, 0, width, camera.viewportHeight);
-        batch.draw(bird.getTexture(), bird.getPosition().x, bird.getPosition().y);
+        batch.draw(
+            bird.getTexture(),
+            bird.getPosition().x, bird.getPosition().y,
+            bird.getWidth() / 2, bird.getHeight() / 2,
+            bird.getWidth(), bird.getHeight(),
+            1f, 1f,
+            bird.getRotation()
+        );
 
         for (Tube tube : tubes) {
             batch.draw(tube.getTopTube(), tube.getPositionTop().x, tube.getPositionTop().y);
