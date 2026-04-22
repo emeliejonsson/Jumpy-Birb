@@ -11,7 +11,7 @@ import java.util.Random;
 public class Tube {
     public static final int TUBE_WIDTH = 52;
     private static final int FLUCTUATION = 160;
-    private static final int TUBE_GAP = 85;
+    private static final int TUBE_GAP = 125;
     private static final int LOWEST_OPENING = 100;
     private Texture topTube, bottomTube;
     private Vector2 positionTop, positionBottom;

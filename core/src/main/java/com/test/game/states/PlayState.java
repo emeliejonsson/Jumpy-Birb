@@ -14,7 +14,7 @@ import com.test.game.sprites.Tube;
 import java.util.ArrayList;
 
 public class PlayState extends State {
-    private static final int TUBE_SPACING = 175;
+    private static final int TUBE_SPACING = 200;
     private static final int TUBE_COUNT = 4;
     private Bird bird;
     private Texture background;
