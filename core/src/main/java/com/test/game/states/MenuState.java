@@ -2,6 +2,7 @@ package com.test.game.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -10,11 +11,13 @@ import com.test.game.JumpyBirb;
 public class MenuState extends State {
     private Texture background;
     private Texture playButton;
+    private Sound backgroundMusic = Gdx.audio.newSound(Gdx.files.internal("bg_music.wav")); //music source: https://freesound.org/people/rebrie18/
 
     public MenuState(GameStateManager gsm) {
         super(gsm);
         background = new Texture("bg.png");
         playButton = new Texture("playbtn.png");
+        backgroundMusic.play();
     }
 
     @Override
