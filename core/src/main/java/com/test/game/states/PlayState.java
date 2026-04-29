@@ -56,6 +56,7 @@ public class PlayState extends State {
         scoreText.setUseIntegerPositions(false);
         score = 0;
         debugMode = false;
+
         tubes = new ArrayList<>();
 //        prefs = Gdx.app.getPreferences("JPBirdSave");
 //        currentHighScore = prefs.getInteger("currentHighScore", 0);
@@ -217,6 +218,7 @@ public class PlayState extends State {
             System.out.println("PlayState disposed");
         }
         passOver.dispose();
+        deathMenuState.dispose();
 //        prefs.flush();
     }
 }
