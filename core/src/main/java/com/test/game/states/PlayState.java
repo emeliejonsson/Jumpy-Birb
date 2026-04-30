@@ -34,14 +34,13 @@ public class PlayState extends State {
     private float topBorder = 340f;
     private float bottomBorder = 0f;
     private Texture test;
-    //    private Preferences prefs;
 
 
     private boolean startGame = false;
 
     protected PlayState(GameStateManager gsm) {
         super(gsm);
-        deathMenuState = new DeathMenuState(gsm);
+        deathMenuState = new DeathMenuState(gsm, this);
         bird = new Bird(50, 200);
         camera.setToOrtho(false, JumpyBirb.WIDTH / 2, JumpyBirb.HEIGHT / 2);
         background = new Texture("bg.png");
@@ -133,8 +132,6 @@ public class PlayState extends State {
                 System.out.println(score);
                 if (currentHighScore < score) {
                     currentHighScore = score;
-//                prefs.putInteger("currentHighScore", currentHighScore);
-//                prefs.flush();
                 }
             }
             camera.update();
@@ -149,6 +146,10 @@ public class PlayState extends State {
         renderer.setColor(0, 1, 1, 1);
         renderer.circle(bird.getBounds().x, bird.getBounds().y, bird.getBounds().radius);
         renderer.end();
+    }
+
+    public int getHighScore() {
+        return currentHighScore;
     }
 
     @Override
@@ -182,7 +183,6 @@ public class PlayState extends State {
         }
 
         textFont.draw(batch, "score: " + score, camera.position.x - (camera.viewportWidth / 2), camera.position.y + (camera.viewportHeight / 2) - 20);
-        highScoreText.draw(batch, "top: " + currentHighScore, camera.position.x - (camera.viewportWidth / 2), camera.position.y + (camera.viewportHeight / 3));
 
         if (debugMode) {
             renderHitbox(renderer);
