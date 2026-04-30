@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.test.game.JumpyBirb;
@@ -20,10 +21,13 @@ public class PlayState extends State {
     private Texture background;
     private boolean debugMode;
     private ArrayList<Tube> tubes;
+
+    private Sound passOver = Gdx.audio.newSound(Gdx.files.internal("bird_squeak.wav")); // sound source: https://freesound.org/people/JarredGibb/
+    private Sound deathSound = Gdx.audio.newSound(Gdx.files.internal("crow.wav")); // sound source: https://freesound.org/people/Jofae/
+
+    private BitmapFont scoreText;
     private int score;
     private BitmapFont textFont;
-    private Sound passOver = Gdx.audio.newSound(Gdx.files.internal("bading.mp3"));
-    private Sound deathSound = Gdx.audio.newSound(Gdx.files.internal("damnbro.mp3"));
     private BitmapFont highScoreText;
     private static int currentHighScore;
     private DeathMenuState deathMenuState;
@@ -45,9 +49,9 @@ public class PlayState extends State {
         camera.setToOrtho(false, JumpyBirb.WIDTH / 2, JumpyBirb.HEIGHT / 2);
         background = new Texture("bg.png");
         background.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
-        textFont = new BitmapFont();
-        textFont.getData().setScale(2);
-        test = new Texture("bg.png");
+        scoreText = new BitmapFont(Gdx.files.internal("winter_font.fnt"));
+        scoreText.getData().setScale(0.5f);
+        scoreText.setUseIntegerPositions(false);
         score = 0;
         highScoreText = new BitmapFont();
         debugMode = false;
@@ -181,8 +185,8 @@ public class PlayState extends State {
 //                tube.getScoreBounds().height);
 
         }
-
-        textFont.draw(batch, "score: " + score, camera.position.x - (camera.viewportWidth / 2), camera.position.y + (camera.viewportHeight / 2) - 20);
+        GlyphLayout layout = new GlyphLayout(scoreText, "SCORE: " + score);
+        scoreText.draw(batch, layout, camera.position.x - layout.width / 2, camera.position.y + (camera.viewportHeight / 2) - 20);
 
         if (debugMode) {
             renderHitbox(renderer);
@@ -208,13 +212,14 @@ public class PlayState extends State {
     public void dispose() {
         background.dispose();
         bird.dispose();
-        textFont.dispose();
+        scoreText.dispose();
         for (Tube tube : tubes) {
             tube.dispose();
             System.out.println("PlayState disposed");
         }
         highScoreText.dispose();
         passOver.dispose();
+        deathMenuState.dispose();
 //        prefs.flush();
     }
 }
