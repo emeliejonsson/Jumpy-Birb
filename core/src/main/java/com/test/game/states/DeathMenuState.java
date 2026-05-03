@@ -2,23 +2,29 @@ package com.test.game.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class DeathMenuState extends State {
-    private Texture gameOver;
-    private final Texture playAgain;
-    private BitmapFont highScoreText;
-    private PlayState state;
+    private final BitmapFont gameOver;
+    private final BitmapFont playAgain;
+    private final BitmapFont highScoreText;
+    private final PlayState state;
 
 
     protected DeathMenuState(GameStateManager gsm, PlayState state) {
         super(gsm);
         this.state = state;
-        highScoreText = new BitmapFont();
-        playAgain = new Texture("Goy.png");
+        highScoreText = new BitmapFont(Gdx.files.internal("winter_font.fnt"));
+        highScoreText.getData().setScale(0.25f);
+        highScoreText.setUseIntegerPositions(false);
+        gameOver = new BitmapFont(Gdx.files.internal("winter_font_gameover.fnt"));
+        gameOver.getData().setScale(0.6f);
+        gameOver.setUseIntegerPositions(false);
+        playAgain = new BitmapFont(Gdx.files.internal("winter_font.fnt"));
+        playAgain.getData().setScale(0.2f);
+        playAgain.setUseIntegerPositions(false);
     }
 
     @Override
@@ -35,21 +41,18 @@ public class DeathMenuState extends State {
 
     @Override
     public void render(SpriteBatch batch, ShapeRenderer renderer) {
-
-        float menuWidth = 130f;
-        float menuHeight = 120f;
         int currentHighScore = state.getHighScore();
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        batch.draw(playAgain, camera.position.x - (menuWidth / 2f), camera.position.y - (menuHeight / 2f), menuWidth, menuHeight);
-        highScoreText.draw(batch, "top: " + currentHighScore, camera.position.x - (camera.viewportWidth / 2), camera.position.y + (camera.viewportHeight / 3));
+        gameOver.draw(batch, "Game Over", camera.position.x - (camera.viewportWidth / 2) + 80, camera.position.y + (camera.viewportHeight / 3) - 40);
+        playAgain.draw(batch, "Press space to play again", camera.position.x - (camera.viewportWidth / 2) + 105, camera.position.y + (camera.viewportHeight / 3) - 80);
+        highScoreText.draw(batch, "Highscore: " + currentHighScore, camera.position.x - (camera.viewportWidth / 2) + 142, camera.position.y + (camera.viewportHeight / 3));
         batch.end();
     }
 
     @Override
     public void dispose() {
-        gameOver.dispose();
-        playAgain.dispose();
+
     }
 }

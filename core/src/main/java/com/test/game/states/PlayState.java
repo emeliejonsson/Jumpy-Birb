@@ -17,27 +17,18 @@ import java.util.ArrayList;
 public class PlayState extends State {
     private static final int TUBE_SPACING = 200;
     private static final int TUBE_COUNT = 4;
-    private Bird bird;
-    private Texture background;
+    private final Bird bird;
+    private final Texture background;
     private boolean debugMode;
-    private ArrayList<Tube> tubes;
-
-    private Sound passOver = Gdx.audio.newSound(Gdx.files.internal("bird_squeak.wav")); // sound source: https://freesound.org/people/JarredGibb/
-    private Sound deathSound = Gdx.audio.newSound(Gdx.files.internal("crow.wav")); // sound source: https://freesound.org/people/Jofae/
-
-    private BitmapFont scoreText;
+    private final ArrayList<Tube> tubes;
+    private final Sound passOver = Gdx.audio.newSound(Gdx.files.internal("bird_squeak.wav")); // sound source: https://freesound.org/people/JarredGibb/
+    private final Sound deathSound = Gdx.audio.newSound(Gdx.files.internal("crow.wav")); // sound source: https://freesound.org/people/Jofae/
+    private final BitmapFont scoreText;
     private int score;
-    private BitmapFont textFont;
-    private BitmapFont highScoreText;
     private static int currentHighScore;
-    private DeathMenuState deathMenuState;
+    private final DeathMenuState deathMenuState;
     private boolean isDead = false;
     private float waitTimer = 1.0f;
-    private float scroll = 200f;
-    private float rotation = 90f;
-    private float topBorder = 340f;
-    private float bottomBorder = 0f;
-    private Texture test;
 
 
     private boolean startGame = false;
@@ -46,18 +37,15 @@ public class PlayState extends State {
         super(gsm);
         deathMenuState = new DeathMenuState(gsm, this);
         bird = new Bird(50, 200);
-        camera.setToOrtho(false, JumpyBirb.WIDTH / 2, JumpyBirb.HEIGHT / 2);
+        camera.setToOrtho(false, (float) JumpyBirb.WIDTH / 2, (float) JumpyBirb.HEIGHT / 2);
         background = new Texture("bg.png");
         background.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         scoreText = new BitmapFont(Gdx.files.internal("winter_font.fnt"));
         scoreText.getData().setScale(0.5f);
         scoreText.setUseIntegerPositions(false);
         score = 0;
-        highScoreText = new BitmapFont();
         debugMode = false;
         tubes = new ArrayList<>();
-//        prefs = Gdx.app.getPreferences("JPBirdSave");
-//        currentHighScore = prefs.getInteger("currentHighScore", 0);
 
         for (int i = 1; i <= TUBE_COUNT; i++) {
             tubes.add(new Tube(i * (TUBE_SPACING + Tube.TUBE_WIDTH)));
@@ -82,16 +70,17 @@ public class PlayState extends State {
             debugMode = !debugMode;
         }
 
-        if (isDead) {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-                gsm.set(new PlayState(gsm));
-            }
+        if (isDead && Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            gsm.set(new PlayState(gsm));
         }
 
+
+        float topBorder = 420f;
         if (bird.getPosition().y >= topBorder) {
             isDead = true;
         }
 
+        float bottomBorder = 0f;
         if (bird.getPosition().y == bottomBorder) {
             isDead = true;
         }
@@ -178,11 +167,6 @@ public class PlayState extends State {
         for (Tube tube : tubes) {
             batch.draw(tube.getTopTube(), tube.getPositionTop().x, tube.getPositionTop().y);
             batch.draw(tube.getBottomTube(), tube.getPositionBottom().x, tube.getPositionBottom().y);
-//            batch.draw(tube.getScoreTexture(),
-//                tube.getScoreBounds().x,
-//                tube.getScoreBounds().y,
-//                tube.getScoreBounds().width,
-//                tube.getScoreBounds().height);
 
         }
         GlyphLayout layout = new GlyphLayout(scoreText, "SCORE: " + score);
@@ -217,10 +201,8 @@ public class PlayState extends State {
             tube.dispose();
             System.out.println("PlayState disposed");
         }
-        highScoreText.dispose();
         passOver.dispose();
         deathMenuState.dispose();
-//        prefs.flush();
     }
 }
 
