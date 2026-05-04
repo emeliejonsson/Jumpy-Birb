@@ -2,7 +2,9 @@ package com.test.game.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
@@ -19,11 +21,17 @@ public class DeathMenuState extends State {
         highScoreText = new BitmapFont(Gdx.files.internal("winter_font.fnt"));
         highScoreText.getData().setScale(0.25f);
         highScoreText.setUseIntegerPositions(false);
-        gameOver = new BitmapFont(Gdx.files.internal("winter_font_gameover.fnt"));
-        gameOver.getData().setScale(0.6f);
+
+        gameOver = new BitmapFont(Gdx.files.internal("gameover_font.fnt"));
+        gameOver.getData().setScale(0.35f);
         gameOver.setUseIntegerPositions(false);
+        gameOver.getRegion().getTexture().setFilter(
+            Texture.TextureFilter.Linear,
+            Texture.TextureFilter.Linear
+        );
+
         playAgain = new BitmapFont(Gdx.files.internal("winter_font.fnt"));
-        playAgain.getData().setScale(0.2f);
+        playAgain.getData().setScale(0.25f);
         playAgain.setUseIntegerPositions(false);
     }
 
@@ -42,12 +50,16 @@ public class DeathMenuState extends State {
     @Override
     public void render(SpriteBatch batch, ShapeRenderer renderer) {
         int currentHighScore = state.getHighScore();
+        GlyphLayout gameOverLayout = new GlyphLayout(gameOver, "Game Over");
+        GlyphLayout playAgainLayout = new GlyphLayout(playAgain, "Press space to play again");
+        GlyphLayout highScoreLayout = new GlyphLayout(highScoreText, "HIGHSCORE: " + currentHighScore);
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        gameOver.draw(batch, "Game Over", camera.position.x - (camera.viewportWidth / 2) + 80, camera.position.y + (camera.viewportHeight / 3) - 40);
-        playAgain.draw(batch, "Press space to play again", camera.position.x - (camera.viewportWidth / 2) + 105, camera.position.y + (camera.viewportHeight / 3) - 80);
-        highScoreText.draw(batch, "Highscore: " + currentHighScore, camera.position.x - (camera.viewportWidth / 2) + 142, camera.position.y + (camera.viewportHeight / 3));
+        gameOver.draw(batch, gameOverLayout, camera.position.x - gameOverLayout.width /2, camera.position.y + gameOverLayout.height / 2);
+        playAgain.draw(batch, playAgainLayout, camera.position.x - playAgainLayout.width / 2, camera.position.y - 25);
+        highScoreText.draw(batch, highScoreLayout, camera.position.x - highScoreLayout.width / 2, camera.position.y + 80);
+
         batch.end();
     }
 
