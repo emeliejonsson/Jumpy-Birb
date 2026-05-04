@@ -18,11 +18,11 @@ public class DeathMenuState extends State {
     protected DeathMenuState(GameStateManager gsm, PlayState state) {
         super(gsm);
         this.state = state;
-        highScoreText = new BitmapFont(Gdx.files.internal("winter_font.fnt"));
+        highScoreText = new BitmapFont(Gdx.files.internal("winter_font_highscore.fnt"));
         highScoreText.getData().setScale(0.25f);
         highScoreText.setUseIntegerPositions(false);
 
-        gameOver = new BitmapFont(Gdx.files.internal("gameover_font.fnt"));
+        gameOver = new BitmapFont(Gdx.files.internal("winter_font_gameover.fnt"));
         gameOver.getData().setScale(0.35f);
         gameOver.setUseIntegerPositions(false);
         gameOver.getRegion().getTexture().setFilter(

@@ -10,13 +10,11 @@ import com.test.game.JumpyBirb;
 
 public class MenuState extends State {
     private Texture background;
-    private Texture playButton;
     private Sound backgroundMusic = Gdx.audio.newSound(Gdx.files.internal("bg_music.wav")); //music source: https://freesound.org/people/rebrie18/
 
     public MenuState(GameStateManager gsm) {
         super(gsm);
         background = new Texture("bg.png");
-        playButton = new Texture("playbtn.png");
         backgroundMusic.play();
     }
 
@@ -36,14 +34,12 @@ public class MenuState extends State {
     public void render(SpriteBatch batch, ShapeRenderer renderer) { //draw starts bottom left-hand corner, continues right and upwards
         batch.begin();
         batch.draw(background, 0, 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
-        batch.draw(playButton, (JumpyBirb.WIDTH / 2) - (playButton.getWidth() / 2), JumpyBirb.HEIGHT / 2);
         batch.end();
     }
 
     @Override
     public void dispose() {
         background.dispose();
-        playButton.dispose();
         System.out.println("MenuState disposed");
     }
 }
