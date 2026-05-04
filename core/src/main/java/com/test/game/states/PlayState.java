@@ -21,8 +21,8 @@ public class PlayState extends State {
     private final Texture background;
     private boolean debugMode;
     private final ArrayList<Tube> tubes;
-    private final Sound passOver = Gdx.audio.newSound(Gdx.files.internal("bird_squeak.wav")); // sound source: https://freesound.org/people/JarredGibb/
-    private final Sound deathSound = Gdx.audio.newSound(Gdx.files.internal("crow.wav")); // sound source: https://freesound.org/people/Jofae/
+    private final Sound passOver = Gdx.audio.newSound(Gdx.files.internal("bird_squeak.mp3")); // sound source: https://freesound.org/people/JarredGibb/
+    private final Sound deathSound = Gdx.audio.newSound(Gdx.files.internal("bird_crow.mp3")); // sound source: https://freesound.org/people/Jofae/
     private final BitmapFont scoreText;
     private int score;
     private static int currentHighScore;

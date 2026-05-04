@@ -10,7 +10,7 @@ import com.test.game.JumpyBirb;
 
 public class MenuState extends State {
     private Texture background;
-    private Sound backgroundMusic = Gdx.audio.newSound(Gdx.files.internal("bg_music.wav")); //music source: https://freesound.org/people/rebrie18/
+    private Sound backgroundMusic = Gdx.audio.newSound(Gdx.files.internal("background_music.mp3")); //music source: https://freesound.org/people/rebrie18/
 
     public MenuState(GameStateManager gsm) {
         super(gsm);
