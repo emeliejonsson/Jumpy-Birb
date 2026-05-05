@@ -13,12 +13,14 @@ public class Tube {
     private static final int FLUCTUATION = 160;
     private static final int TUBE_GAP = 125;
     private static final int LOWEST_OPENING = 100;
-    private Texture topTube, bottomTube;
-    private Vector2 positionTop, positionBottom;
-    private Rectangle hitboxTopTube, hitboxBottomTube;
+    private Texture topTube;
+    private Texture bottomTube;
+    private Vector2 positionTop;
+    private Vector2 positionBottom;
+    private Rectangle hitboxTopTube;
+    private Rectangle hitboxBottomTube;
     private Random random;
     private Rectangle scoreBounds;
-//    private Texture scoreTexture;
     private Boolean isScoreFalse = false;
 
 
@@ -26,9 +28,8 @@ public class Tube {
         topTube = new Texture("toptube.png");
         random = new Random();
         bottomTube = random.nextBoolean() ? new Texture("bottomtube.png") : new Texture("bottomtube2.png");
-//        scoreTexture = new Texture("Goy.png");
 
-        positionTop = new Vector2(x, random.nextInt(FLUCTUATION) + TUBE_GAP + LOWEST_OPENING);
+        positionTop = new Vector2(x, random.nextInt(FLUCTUATION) + (float)TUBE_GAP + LOWEST_OPENING);
         positionBottom = new Vector2(x, positionTop.y - TUBE_GAP - bottomTube.getHeight());
 
         float widthTop = topTube.getWidth() * 0.5f;
@@ -39,7 +40,6 @@ public class Tube {
         float topX = positionTop.x + (topTube.getWidth() - widthTop) / 2;
         float bottomX = positionBottom.x + (bottomTube.getWidth() - widthBottom) / 2;
 
-        //hitbox på fågelholk behöver ändras, alternativt hinder kan vara stubbar?
         hitboxTopTube = new Rectangle(topX, positionTop.y, widthTop, heightTop);
         hitboxBottomTube = new Rectangle(bottomX, positionBottom.y, widthBottom, heightBottom);
 
@@ -70,7 +70,7 @@ public class Tube {
 
 
     public void reposition(float x) {
-        positionTop.set(x, random.nextInt(FLUCTUATION) + TUBE_GAP + LOWEST_OPENING);
+        positionTop.set(x, random.nextInt(FLUCTUATION) + (float)TUBE_GAP + LOWEST_OPENING);
 
         bottomTube.dispose();
         bottomTube = random.nextBoolean() ? new Texture("bottomtube.png") : new Texture("bottomtube2.png");
@@ -116,8 +116,4 @@ public class Tube {
         return scoreBounds;
     }
 
-//    public Texture getScoreTexture() {
-//
-//        return scoreTexture;
-//    }
 }

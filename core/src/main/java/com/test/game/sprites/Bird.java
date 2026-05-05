@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector3;
-import org.w3c.dom.Text;
 
 public class Bird {
     private float rotation = 0f;
@@ -16,14 +15,14 @@ public class Bird {
     private Vector3 position;
     private Vector3 velocity;
     private Circle bounds;
-    private TextureRegion bird;
+    private TextureRegion birdTexture;
 
     public Bird(int x, int y) {
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
-        bird = new TextureRegion(new Texture("domherre.png"));
+        birdTexture = new TextureRegion(new Texture("domherre.png"));
 
-        float radius = bird.getRegionWidth() / 4f;
+        float radius = birdTexture.getRegionWidth() / 4f;
         bounds = new Circle(x, y, radius);
     }
 
@@ -41,8 +40,8 @@ public class Bird {
 
         velocity.scl(1 / delta);
 
-        bounds.setPosition(position.x + bird.getRegionWidth() / 2,
-            position.y + bird.getRegionHeight() / 2);
+        bounds.setPosition(position.x + (float) birdTexture.getRegionWidth() / 2,
+            position.y + (float) birdTexture.getRegionHeight() / 2);
 
         if (velocity.y > 0) {
             rotation = Math.min(rotation + ROTATION_SPEED * delta, MAX_ROTATION_UP);
@@ -52,7 +51,7 @@ public class Bird {
     }
 
     public TextureRegion getTexture() {
-        return bird;
+        return birdTexture;
     }
 
     public Vector3 getPosition() {
@@ -65,11 +64,11 @@ public class Bird {
     }
 
     public float getWidth() {
-        return bird.getRegionWidth();
+        return birdTexture.getRegionWidth();
     }
 
     public float getHeight() {
-        return bird.getRegionHeight();
+        return birdTexture.getRegionHeight();
     }
 
     public float getRotation() {
@@ -81,6 +80,6 @@ public class Bird {
     }
 
     public void dispose() {
-        bird.getTexture().dispose();
+        birdTexture.getTexture().dispose();
     }
 }

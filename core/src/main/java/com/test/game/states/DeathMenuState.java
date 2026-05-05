@@ -44,7 +44,7 @@ public class DeathMenuState extends State {
 
     @Override
     public void update(float delta) {
-
+        handleInput();
     }
 
     @Override
@@ -65,6 +65,8 @@ public class DeathMenuState extends State {
 
     @Override
     public void dispose() {
-
+        highScoreText.dispose();
+        playAgain.dispose();
+        gameOver.dispose();
     }
 }

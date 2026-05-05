@@ -48,7 +48,7 @@ public class PlayState extends State {
         tubes = new ArrayList<>();
 
         for (int i = 1; i <= TUBE_COUNT; i++) {
-            tubes.add(new Tube(i * (TUBE_SPACING + Tube.TUBE_WIDTH)));
+            tubes.add(new Tube(i * ((float)TUBE_SPACING + Tube.TUBE_WIDTH)));
         }
     }
 
@@ -122,7 +122,6 @@ public class PlayState extends State {
             if (tube.pass((bird.getBounds()))) {
                 passOver.play();
                 score++;
-                System.out.println(score);
                 if (currentHighScore < score) {
                     currentHighScore = score;
                 }
@@ -199,7 +198,6 @@ public class PlayState extends State {
         scoreText.dispose();
         for (Tube tube : tubes) {
             tube.dispose();
-            System.out.println("PlayState disposed");
         }
         passOver.dispose();
         deathMenuState.dispose();
