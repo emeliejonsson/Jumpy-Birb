@@ -13,7 +13,7 @@ public class JumpyBirb extends ApplicationAdapter {
     public static final int WIDTH = 1600;
     public static final int HEIGHT = 900;
 
-    public static final String TITLE = "Jumpy Birb";
+    public static final String TITLE = "Squeaky the Birb";
     private GameStateManager gsm;
     private SpriteBatch batch;
     private ShapeRenderer shapeRenderer;

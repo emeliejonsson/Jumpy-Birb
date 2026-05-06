@@ -21,7 +21,7 @@ public class DeathMenuState extends State {
         highScoreText.getData().setScale(0.25f);
         highScoreText.setUseIntegerPositions(false);
 
-        gameOver = new BitmapFont(Gdx.files.internal("winter_font_gameover.fnt"));
+        gameOver = new BitmapFont(Gdx.files.internal("squeaky_red_big.fnt"));
         gameOver.getData().setScale(0.35f);
         gameOver.setUseIntegerPositions(false);
         gameOver.getRegion().getTexture().setFilter(
@@ -29,7 +29,7 @@ public class DeathMenuState extends State {
             Texture.TextureFilter.Linear
         );
 
-        playAgain = new BitmapFont(Gdx.files.internal("blue_font.fnt"));
+        playAgain = new BitmapFont(Gdx.files.internal("squeaky_green_font.fnt"));
         playAgain.getData().setScale(0.25f);
         playAgain.setUseIntegerPositions(false);
     }

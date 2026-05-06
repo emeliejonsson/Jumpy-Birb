@@ -40,7 +40,7 @@ public class PlayState extends State {
         camera.setToOrtho(false, (float) JumpyBirb.WIDTH / 2, (float) JumpyBirb.HEIGHT / 2);
         background = new Texture("bg.png");
         background.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
-        scoreText = new BitmapFont(Gdx.files.internal("blue_font.fnt"));
+        scoreText = new BitmapFont(Gdx.files.internal("squeaky_green_font.fnt"));
         scoreText.getData().setScale(0.5f);
         scoreText.setUseIntegerPositions(false);
         score = 0;
@@ -154,7 +154,7 @@ public class PlayState extends State {
         float camLeft = camera.position.x - (camera.viewportWidth / 2);
         float width = camera.viewportWidth;
         float offSet = Math.floorMod((int) camLeft, (int) width);
-        batch.setColor(1, 1, 1, 0.9f);
+        batch.setColor(1, 1, 1, 0.8f);
         batch.draw(background, camLeft - offSet, 0, width, camera.viewportHeight);
         batch.draw(background, camLeft - offSet, -width, 0, camera.viewportHeight);
         batch.draw(background, (camLeft - offSet) + width, 0, width, camera.viewportHeight);

@@ -23,8 +23,8 @@ public class MenuState extends State {
         super(gsm);
         background = new Texture("bg.png");
         backgroundMusic.play();
-        font = new BitmapFont(Gdx.files.internal("blue_font.fnt"));
-        bigFont = new BitmapFont(Gdx.files.internal("blue_font_big.fnt"));
+        font = new BitmapFont(Gdx.files.internal("squeaky_green_font.fnt"));
+        bigFont = new BitmapFont(Gdx.files.internal("squeaky_red_title.fnt"));
         font.getData().setScale(1f);
         titleLayout = new GlyphLayout(bigFont, "Squeaky the Birb");
         startLayout = new GlyphLayout(font, "Press SPACE to start game");
@@ -49,7 +49,7 @@ public class MenuState extends State {
         float y = (float) JumpyBirb.HEIGHT / 2 + titleLayout.height / 2;
         batch.begin();
 
-        batch.setColor(1,1,1,0.9f);
+        batch.setColor(1,1,1,0.8f);
         batch.draw(background, 0, 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
 
         batch.setColor(1,1,1,1);
