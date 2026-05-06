@@ -30,7 +30,7 @@ public class DeathMenuState extends State {
             Texture.TextureFilter.Linear
         );
 
-        playAgain = new BitmapFont(Gdx.files.internal("winter_font.fnt"));
+        playAgain = new BitmapFont(Gdx.files.internal("blue_font.fnt"));
         playAgain.getData().setScale(0.25f);
         playAgain.setUseIntegerPositions(false);
     }
