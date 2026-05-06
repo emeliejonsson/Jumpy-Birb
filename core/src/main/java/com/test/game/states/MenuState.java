@@ -14,6 +14,7 @@ public class MenuState extends State {
     private Texture background;
     private Sound backgroundMusic = Gdx.audio.newSound(Gdx.files.internal("background_music.mp3")); //music source: https://freesound.org/people/rebrie18/
     private BitmapFont font;
+    private BitmapFont bigFont;
     private GlyphLayout startLayout;
     private GlyphLayout titleLayout;
 
@@ -22,8 +23,9 @@ public class MenuState extends State {
         background = new Texture("bg.png");
         backgroundMusic.play();
         font = new BitmapFont(Gdx.files.internal("blue_font.fnt"));
+        bigFont = new BitmapFont(Gdx.files.internal("blue_font_big.fnt"));
         font.getData().setScale(1f);
-        titleLayout = new GlyphLayout(font, "Jumpy Bird");
+        titleLayout = new GlyphLayout(bigFont, "Squeaky the Birb");
         startLayout = new GlyphLayout(font, "Press SPACE to start game");
     }
 
@@ -41,16 +43,18 @@ public class MenuState extends State {
 
     @Override
     public void render(SpriteBatch batch, ShapeRenderer renderer) { //draw starts bottom left-hand corner, continues right and upwards
+        float x = (JumpyBirb.WIDTH - titleLayout.width) / 2;
+        float y = JumpyBirb.HEIGHT / 2 + titleLayout.height / 2;
         batch.begin();
 
         batch.setColor(1,1,1,0.9f);
         batch.draw(background, 0, 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
 
         batch.setColor(1,1,1,1);
-        font.draw(batch, titleLayout, (JumpyBirb.WIDTH - titleLayout.width) / 2, JumpyBirb.HEIGHT * 0.95f);
+        bigFont.draw(batch, titleLayout, x, (y + 70));
         font.draw(batch, startLayout,
             (JumpyBirb.WIDTH - startLayout.width) / 2,
-            JumpyBirb.HEIGHT * 0.5f);
+            (JumpyBirb.HEIGHT - startLayout.height) / 2 - 10);
 
         batch.end();
 
