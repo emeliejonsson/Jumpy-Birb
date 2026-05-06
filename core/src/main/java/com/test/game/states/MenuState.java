@@ -44,7 +44,7 @@ public class MenuState extends State {
     @Override
     public void render(SpriteBatch batch, ShapeRenderer renderer) { //draw starts bottom left-hand corner, continues right and upwards
         float x = (JumpyBirb.WIDTH - titleLayout.width) / 2;
-        float y = JumpyBirb.HEIGHT / 2 + titleLayout.height / 2;
+        float y = (float) JumpyBirb.HEIGHT / 2 + titleLayout.height / 2;
         batch.begin();
 
         batch.setColor(1,1,1,0.9f);
