@@ -14,7 +14,6 @@ public class DeathMenuState extends State {
     private final BitmapFont highScoreText;
     private final PlayState state;
 
-
     protected DeathMenuState(GameStateManager gsm, PlayState state) {
         super(gsm);
         this.state = state;

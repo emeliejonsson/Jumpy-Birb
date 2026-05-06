@@ -48,18 +48,19 @@ public class PlayState extends State {
         tubes = new ArrayList<>();
 
         for (int i = 1; i <= TUBE_COUNT; i++) {
-            tubes.add(new Tube(i * ((float)TUBE_SPACING + Tube.TUBE_WIDTH)));
+            tubes.add(new Tube(i * ((float) TUBE_SPACING + Tube.TUBE_WIDTH)));
         }
     }
 
     @Override
     protected void handleInput() {
-        if (!startGame) {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-                startGame = true;
-            }
-            return;
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            bird.setMovement(120);
+            bird.setGravity(-900);
+            startGame = true;
         }
+
         // Jump
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             bird.jump();
@@ -102,7 +103,9 @@ public class PlayState extends State {
         handleInput();
 
         if (!startGame) {
-            return;
+            bird.setMovement(0);
+            bird.setGravity(0);
+            bird.setRotation(0);
         }
         bird.update(delta);
 
@@ -151,7 +154,7 @@ public class PlayState extends State {
         float camLeft = camera.position.x - (camera.viewportWidth / 2);
         float width = camera.viewportWidth;
         float offSet = Math.floorMod((int) camLeft, (int) width);
-        batch.setColor(1,1,1,0.9f);
+        batch.setColor(1, 1, 1, 0.9f);
         batch.draw(background, camLeft - offSet, 0, width, camera.viewportHeight);
         batch.draw(background, camLeft - offSet, -width, 0, camera.viewportHeight);
         batch.draw(background, (camLeft - offSet) + width, 0, width, camera.viewportHeight);

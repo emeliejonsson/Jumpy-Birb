@@ -10,8 +10,8 @@ public class Bird {
     private static final float MAX_ROTATION_UP = 5f;
     private static final float MAX_ROTATION_DOWN = -25f;
     private static final float ROTATION_SPEED = 80f; // degrees per second
-    private static final int GRAVITY = -900;
-    private static final int MOVEMENT = 120;
+    private int GRAVITY = -900;
+    private int MOVEMENT = 120;
     private Vector3 position;
     private Vector3 velocity;
     private Circle bounds;
@@ -81,5 +81,17 @@ public class Bird {
 
     public void dispose() {
         birdTexture.getTexture().dispose();
+    }
+
+    public void setMovement(int speed) {
+        this.MOVEMENT = speed;
+    }
+
+    public void setGravity(int gravity) {
+        this.GRAVITY = gravity;
+    }
+
+    public void setRotation(float rotation) {
+        this.rotation = rotation;
     }
 }
