@@ -151,9 +151,11 @@ public class PlayState extends State {
         float camLeft = camera.position.x - (camera.viewportWidth / 2);
         float width = camera.viewportWidth;
         float offSet = Math.floorMod((int) camLeft, (int) width);
+        batch.setColor(1,1,1,0.9f);
         batch.draw(background, camLeft - offSet, 0, width, camera.viewportHeight);
         batch.draw(background, camLeft - offSet, -width, 0, camera.viewportHeight);
         batch.draw(background, (camLeft - offSet) + width, 0, width, camera.viewportHeight);
+        batch.setColor(1, 1, 1, 1);
         batch.draw(
             bird.getTexture(),
             bird.getPosition().x, bird.getPosition().y,

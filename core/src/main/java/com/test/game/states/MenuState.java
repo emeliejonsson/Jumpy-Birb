@@ -42,11 +42,16 @@ public class MenuState extends State {
     @Override
     public void render(SpriteBatch batch, ShapeRenderer renderer) { //draw starts bottom left-hand corner, continues right and upwards
         batch.begin();
+
+        batch.setColor(1,1,1,0.9f);
         batch.draw(background, 0, 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+
+        batch.setColor(1,1,1,1);
         font.draw(batch, titleLayout, (JumpyBirb.WIDTH - titleLayout.width) / 2, JumpyBirb.HEIGHT * 0.95f);
         font.draw(batch, startLayout,
             (JumpyBirb.WIDTH - startLayout.width) / 2,
             JumpyBirb.HEIGHT * 0.5f);
+
         batch.end();
 
     }
