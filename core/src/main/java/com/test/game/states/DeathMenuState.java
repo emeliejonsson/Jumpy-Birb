@@ -51,7 +51,7 @@ public class DeathMenuState extends State {
     public void render(SpriteBatch batch, ShapeRenderer renderer) {
         int currentHighScore = state.getHighScore();
         GlyphLayout gameOverLayout = new GlyphLayout(gameOver, "Game Over");
-        GlyphLayout playAgainLayout = new GlyphLayout(playAgain, "Press space to play again");
+        GlyphLayout playAgainLayout = new GlyphLayout(playAgain, "Press SPACE to play again");
         GlyphLayout highScoreLayout = new GlyphLayout(highScoreText, "HIGHSCORE: " + currentHighScore);
 
         batch.setProjectionMatrix(camera.combined);

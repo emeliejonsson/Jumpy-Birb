@@ -24,7 +24,7 @@ public class MenuState extends State {
         font = new BitmapFont(Gdx.files.internal("winter_font.fnt"));
         font.getData().setScale(1f);
         titleLayout = new GlyphLayout(font, "Jumpy Bird");
-        startLayout = new GlyphLayout(font, "Starta Spelet");
+        startLayout = new GlyphLayout(font, "Press SPACE to start game");
     }
 
     @Override
