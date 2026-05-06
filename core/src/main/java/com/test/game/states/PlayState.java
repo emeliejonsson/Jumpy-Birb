@@ -40,7 +40,7 @@ public class PlayState extends State {
         camera.setToOrtho(false, (float) JumpyBirb.WIDTH / 2, (float) JumpyBirb.HEIGHT / 2);
         background = new Texture("bg.png");
         background.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
-        scoreText = new BitmapFont(Gdx.files.internal("winter_font.fnt"));
+        scoreText = new BitmapFont(Gdx.files.internal("blue_font.fnt"));
         scoreText.getData().setScale(0.5f);
         scoreText.setUseIntegerPositions(false);
         score = 0;
