@@ -21,8 +21,8 @@ public class PlayState extends State {
     private final Texture background;
     private boolean debugMode;
     private final ArrayList<Tube> tubes;
-    private final Sound passOver = Gdx.audio.newSound(Gdx.files.internal("bird_squeak.mp3")); // sound source: https://freesound.org/people/JarredGibb/
-    private final Sound deathSound = Gdx.audio.newSound(Gdx.files.internal("bird_crow.mp3")); // sound source: https://freesound.org/people/Jofae/
+    private final Sound passOver = Gdx.audio.newSound(Gdx.files.internal("assets/sounds/bird_squeak.mp3")); // sound source: https://freesound.org/people/JarredGibb/
+    private final Sound deathSound = Gdx.audio.newSound(Gdx.files.internal("assets/sounds/bird_crow.mp3")); // sound source: https://freesound.org/people/Jofae/
     private final BitmapFont scoreText;
     private int score;
     private static int currentHighScore;
@@ -38,9 +38,9 @@ public class PlayState extends State {
         deathMenuState = new DeathMenuState(gsm, this);
         bird = new Bird(50, 200);
         camera.setToOrtho(false, (float) JumpyBirb.WIDTH / 2, (float) JumpyBirb.HEIGHT / 2);
-        background = new Texture("bg.png");
+        background = new Texture("assets/graphics/bg.png");
         background.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
-        scoreText = new BitmapFont(Gdx.files.internal("squeaky_green_font.fnt"));
+        scoreText = new BitmapFont(Gdx.files.internal("assets/fonts/squeaky_green_font.fnt"));
         scoreText.getData().setScale(0.5f);
         scoreText.setUseIntegerPositions(false);
         score = 0;

@@ -25,9 +25,9 @@ public class Tube {
 
 
     public Tube(float x) {
-        topTube = new Texture("toptube.png");
+        topTube = new Texture("assets/graphics/toptube.png");
         random = new Random();
-        bottomTube = random.nextBoolean() ? new Texture("bottomtube.png") : new Texture("bottomtube2.png");
+        bottomTube = random.nextBoolean() ? new Texture("assets/graphics/bottomtube.png") : new Texture("assets/graphics/bottomtube2.png");
 
         positionTop = new Vector2(x, random.nextInt(FLUCTUATION) + (float)TUBE_GAP + LOWEST_OPENING);
         positionBottom = new Vector2(x, positionTop.y - TUBE_GAP - bottomTube.getHeight());
@@ -73,7 +73,7 @@ public class Tube {
         positionTop.set(x, random.nextInt(FLUCTUATION) + (float)TUBE_GAP + LOWEST_OPENING);
 
         bottomTube.dispose();
-        bottomTube = random.nextBoolean() ? new Texture("bottomtube.png") : new Texture("bottomtube2.png");
+        bottomTube = random.nextBoolean() ? new Texture("assets/graphics/bottomtube.png") : new Texture("assets/graphics/bottomtube2.png");
 
         positionBottom.set(x, positionTop.y - TUBE_GAP - bottomTube.getHeight());
 

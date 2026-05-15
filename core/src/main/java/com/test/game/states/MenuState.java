@@ -13,7 +13,7 @@ import com.test.game.JumpyBirb;
 
 public class MenuState extends State {
     private Texture background;
-    private Music backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("assets/background_music.mp3")); //music source: https://freesound.org/people/rebrie18/
+    private Music backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("assets/sounds/background_music.mp3")); //music source: https://freesound.org/people/rebrie18/
     private BitmapFont font;
     private BitmapFont bigFont;
     private GlyphLayout startLayout;
@@ -21,10 +21,10 @@ public class MenuState extends State {
 
     public MenuState(GameStateManager gsm) {
         super(gsm);
-        background = new Texture("bg.png");
+        background = new Texture("assets/graphics/bg.png");
         backgroundMusic.play();
-        font = new BitmapFont(Gdx.files.internal("squeaky_green_font.fnt"));
-        bigFont = new BitmapFont(Gdx.files.internal("red_title.fnt"));
+        font = new BitmapFont(Gdx.files.internal("assets/fonts/squeaky_green_font.fnt"));
+        bigFont = new BitmapFont(Gdx.files.internal("assets/fonts/red_title.fnt"));
         font.getData().setScale(1f);
         titleLayout = new GlyphLayout(bigFont, "Squeaky the Birb");
         startLayout = new GlyphLayout(font, "Press SPACE to start game");
