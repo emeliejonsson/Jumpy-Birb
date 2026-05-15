@@ -24,7 +24,7 @@ public class MenuState extends State {
         background = new Texture("bg.png");
         backgroundMusic.play();
         font = new BitmapFont(Gdx.files.internal("squeaky_green_font.fnt"));
-        bigFont = new BitmapFont(Gdx.files.internal("squeaky_red_title.fnt"));
+        bigFont = new BitmapFont(Gdx.files.internal("red_title.fnt"));
         font.getData().setScale(1f);
         titleLayout = new GlyphLayout(bigFont, "Squeaky the Birb");
         startLayout = new GlyphLayout(font, "Press SPACE to start game");
