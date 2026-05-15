@@ -1,8 +1,14 @@
-# TestGame
+# JumpyBirb (Squeaky the Birb)
 
 A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/libgdx/gdx-liftoff).
 
 This project was generated with a template including simple application launchers and an `ApplicationAdapter` extension that draws libGDX logo.
+
+## About
+
+This is group project created as part of a course in Agile Methods at Yrgo, Gothenburg.
+The project was developed collaboratively by students to practice agile workflows, teamwork, 
+and game development using Java and libGdx.
 
 ## Platforms
 
