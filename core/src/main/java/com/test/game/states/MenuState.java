@@ -65,7 +65,6 @@ public class MenuState extends State {
     public void dispose() {
         background.dispose();
         font.dispose();
-        System.out.println("MenuState disposed");
     }
 }
 

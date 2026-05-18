@@ -26,6 +26,7 @@ public class Tube {
 
     public Tube(float x) {
         topTube = new Texture("assets/graphics/toptube.png");
+        // NOSONAR - tube gap randomness
         random = new Random();
         bottomTube = random.nextBoolean() ? new Texture("assets/graphics/bottomtube.png") : new Texture("assets/graphics/bottomtube2.png");
 
