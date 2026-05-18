@@ -21,7 +21,7 @@ public class Tube {
     private Rectangle hitboxBottomTube;
     private Random random;
     private Rectangle scoreBounds;
-    private Boolean isScoreFalse = false;
+    private boolean isScoreFalse = false;
 
 
     public Tube(float x) {

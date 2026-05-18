@@ -25,7 +25,7 @@ public class PlayState extends State {
     private final Sound deathSound = Gdx.audio.newSound(Gdx.files.internal("assets/sounds/bird_crow.mp3")); // sound source: https://freesound.org/people/Jofae/
     private final BitmapFont scoreText;
     private int score;
-    private static int currentHighScore;
+    private int currentHighScore;
     private final DeathMenuState deathMenuState;
     private boolean isDead = false;
     private float waitTimer = 1.0f;

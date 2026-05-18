@@ -12,6 +12,10 @@ buildscript {
   }
 }
 
+plugins {
+  id "org.sonarqube" version "7.3.0.8198" // Replace with latest scanner version number
+}
+
 allprojects {
   apply plugin: 'eclipse'
   apply plugin: 'idea'
