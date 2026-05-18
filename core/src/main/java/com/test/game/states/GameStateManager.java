@@ -3,14 +3,16 @@ package com.test.game.states;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Stack;
 
 public class GameStateManager {
 
-    private final Stack<State> states;
+    private final Deque<State> states;
 
     public GameStateManager() {
-        states = new Stack<>();
+        states = new ArrayDeque<>();
     }
 
     public void push(State state) {
@@ -22,7 +24,9 @@ public class GameStateManager {
     }
 
     public void set(State state) {
-        states.pop().dispose();
+        if (!states.isEmpty()) {
+            states.pop().dispose();
+        }
         states.push(state);
     }
 
