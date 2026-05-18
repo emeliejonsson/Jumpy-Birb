@@ -103,6 +103,8 @@ public class StartupHelper {
 	 */
 	public static boolean startNewJvmIfRequired(boolean inheritIO) {
 		String osName = System.getProperty("os.name").toLowerCase(Locale.ROOT);
+        String tmpDirKey = "java.io.tmpdir";
+        String user = "user.name";
 		if (osName.contains("mac")) return startNewJvm0(/*isMac =*/ true, inheritIO);
 		if (osName.contains("windows")) {
 			// Here, we are trying to work around an issue with how LWJGL3 loads its extracted .dll files.
@@ -113,16 +115,16 @@ public class StartupHelper {
 			// We revert our changes immediately after loading LWJGL3 natives.
 			String programData = System.getenv("ProgramData");
 			if (programData == null) programData = "C:\\Temp"; // if ProgramData isn't set, try some fallback.
-			String prevTmpDir = System.getProperty("java.io.tmpdir", programData);
-			String prevUser = System.getProperty("user.name", "libGDX_User");
-			System.setProperty("java.io.tmpdir", programData + "\\libGDX-temp");
+			String prevTmpDir = System.getProperty(tmpDirKey, programData);
+			String prevUser = System.getProperty(user, "libGDX_User");
+			System.setProperty(tmpDirKey, programData + "\\libGDX-temp");
 			System.setProperty(
-				"user.name",
+				user,
 				("User_" + prevUser.hashCode() + "_GDX" + Version.VERSION).replace('.', '_')
 			);
 			Lwjgl3NativesLoader.load();
-			System.setProperty("java.io.tmpdir", prevTmpDir);
-			System.setProperty("user.name", prevUser);
+			System.setProperty(tmpDirKey, prevTmpDir);
+			System.setProperty(user, prevUser);
 			return false;
 		}
 		return startNewJvm0(/*isMac =*/ false, inheritIO);
