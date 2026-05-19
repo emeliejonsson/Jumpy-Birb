@@ -20,7 +20,7 @@ public class Bird {
     public Bird(int x, int y) {
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
-        birdTexture = new TextureRegion(new Texture("assets/graphics/domherre.png"));
+        birdTexture = new TextureRegion(new Texture("graphics/domherre.png"));
 
         float radius = birdTexture.getRegionWidth() / 4f;
         bounds = new Circle(x, y, radius);

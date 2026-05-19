@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.test.game.JumpyBirb;
 import com.test.game.sprites.Bird;
 import com.test.game.sprites.Tube;
@@ -21,11 +22,11 @@ public class PlayState extends State {
     private final Texture background;
     private boolean debugMode;
     private final ArrayList<Tube> tubes;
-    private final Sound passOver = Gdx.audio.newSound(Gdx.files.internal("assets/sounds/bird_squeak.mp3")); // sound source: https://freesound.org/people/JarredGibb/
-    private final Sound deathSound = Gdx.audio.newSound(Gdx.files.internal("assets/sounds/bird_crow.mp3")); // sound source: https://freesound.org/people/Jofae/
+    private final Sound passOver = Gdx.audio.newSound(Gdx.files.internal("sounds/bird_squeak.mp3")); // sound source: https://freesound.org/people/JarredGibb/
+    private final Sound deathSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bird_crow.mp3")); // sound source: https://freesound.org/people/Jofae/
     private final BitmapFont scoreText;
     private int score;
-    private int currentHighScore;
+    private static int currentHighScore;
     private final DeathMenuState deathMenuState;
     private boolean isDead = false;
     private float waitTimer = 1.0f;
@@ -38,9 +39,9 @@ public class PlayState extends State {
         deathMenuState = new DeathMenuState(gsm, this);
         bird = new Bird(50, 200);
         camera.setToOrtho(false, (float) JumpyBirb.WIDTH / 2, (float) JumpyBirb.HEIGHT / 2);
-        background = new Texture("assets/graphics/bg.png");
+        background = new Texture("graphics/bg.png");
         background.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
-        scoreText = new BitmapFont(Gdx.files.internal("assets/fonts/squeaky_green_font.fnt"));
+        scoreText = new BitmapFont(Gdx.files.internal("fonts/squeaky_green_font.fnt"));
         scoreText.getData().setScale(0.5f);
         scoreText.setUseIntegerPositions(false);
         score = 0;
@@ -137,9 +138,18 @@ public class PlayState extends State {
 
     private void renderHitbox(ShapeRenderer renderer) {
         renderer.setProjectionMatrix(camera.combined);
-        renderer.begin(ShapeRenderer.ShapeType.Line);
-        renderer.setColor(0, 1, 1, 1);
+        renderer.begin(ShapeRenderer.ShapeType.Filled);
+        renderer.setColor(1, 0, 0, 1);
+        //render bird-hitbox
         renderer.circle(bird.getBounds().x, bird.getBounds().y, bird.getBounds().radius);
+        //render tube-hitbox
+        renderer.setColor(1, 1, 0, 1);
+        for (Tube tube : tubes) {
+            Rectangle topTube = tube.getHitboxTopTube();
+            Rectangle bottomTube = tube.getHitboxBottomTube();
+            renderer.rect(topTube.x, topTube.y, topTube.width, topTube.height);
+            renderer.rect(bottomTube.x, bottomTube.y, bottomTube.width, bottomTube.height);
+        }
         renderer.end();
     }
 
