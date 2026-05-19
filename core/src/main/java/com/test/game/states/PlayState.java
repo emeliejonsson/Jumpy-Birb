@@ -57,7 +57,7 @@ public class PlayState extends State {
     protected void handleInput() {
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            bird.setMovement(120);
+            bird.setMovement(185);
             bird.setGravity(-900);
             startGame = true;
         }
@@ -78,13 +78,15 @@ public class PlayState extends State {
 
 
         float topBorder = 420f;
-        if (bird.getPosition().y >= topBorder) {
+        if (!isDead && bird.getPosition().y >= topBorder) {
             isDead = true;
+            deathSound.play();
         }
 
         float bottomBorder = 0f;
-        if (bird.getPosition().y == bottomBorder) {
+        if (!isDead && bird.getPosition().y <= bottomBorder) {
             isDead = true;
+            deathSound.play();
         }
     }
 
