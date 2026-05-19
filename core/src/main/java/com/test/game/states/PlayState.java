@@ -203,10 +203,7 @@ public class PlayState extends State {
             batch.setProjectionMatrix(deathMenuState.camera.combined);
             deathMenuState.render(batch, renderer);
         }
-
-
     }
-
 
     @Override
     public void dispose() {
