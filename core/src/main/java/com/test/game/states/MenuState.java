@@ -34,6 +34,7 @@ public class MenuState extends State {
     public void handleInput() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.justTouched()) {
             gsm.set(new PlayState(gsm));
+            dispose();
         }
     }
 

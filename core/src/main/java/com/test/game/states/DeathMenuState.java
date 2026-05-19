@@ -38,6 +38,7 @@ public class DeathMenuState extends State {
     protected void handleInput() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             gsm.set(new PlayState(gsm));
+            dispose();
         }
     }
 

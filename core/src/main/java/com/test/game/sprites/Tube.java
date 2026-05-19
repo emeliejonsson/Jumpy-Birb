@@ -49,9 +49,7 @@ public class Tube {
             positionBottom.y + bottomTube.getHeight(),
             2, TUBE_GAP);
 
-
     }
-
 
     public Texture getTopTube() {
         return topTube;
@@ -88,16 +86,10 @@ public class Tube {
         isScoreFalse = false;
     }
 
-
-    public boolean collides(Rectangle player) {
-        return player.overlaps(hitboxTopTube) || (player.overlaps(hitboxBottomTube));
-    }
-
     public boolean collides(Circle player) {
         return Intersector.overlaps(player, hitboxTopTube) ||
             Intersector.overlaps(player, hitboxBottomTube);
     }
-
 
     public boolean pass(Circle player) {
         if (!isScoreFalse && Intersector.overlaps(player, scoreBounds)) {
@@ -111,10 +103,4 @@ public class Tube {
         topTube.dispose();
         bottomTube.dispose();
     }
-
-
-    public Rectangle getScoreBounds() {
-        return scoreBounds;
-    }
-
 }
